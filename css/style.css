@@ -1,0 +1,21 @@
+#user-form {
+	width: 15%;
+}
+
+#user-form > button.btn {
+	margin: 0 3%;
+}
+
+span.navbar-text {
+	margin: 0 1%;
+}
+
+div.container > form {
+	width: 60%;
+	margin: 40px auto;
+}
+
+span.required {
+	color: red;
+	margin: 0 5px;
+}

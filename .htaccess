@@ -1,0 +1,4 @@
+SetEnv DB ad2104
+SetEnv DB_SERVER localhost
+#SetEnv DB_PASSWORD gonekill
+SetEnv DB_USER root
