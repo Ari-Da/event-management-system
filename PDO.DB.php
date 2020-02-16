@@ -1,45 +1,67 @@
 <?php
 
 class DB {
-	private $db;
+	static protected $db;
 
-	function __construct() {
+	static function init() {
 		try {
-			$this->dbh = new PDO("mysql:host={$_SERVER['DB_SERVER']};dbname={$_SERVER['DB']}", $_SERVER['DB_USER'], '');
-			$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			self::$db = new PDO("mysql:host={$_SERVER['DB_SERVER']};dbname={$_SERVER['DB']}", $_SERVER['DB_USER'], '');
+			self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			return self::$db;
 		} catch (PDOException $e) {
 			// display the error message
 			echo $e->getMessage();
 			die("\nBad database connection");
 		}
-	}	
+	}
 
-	function login($name, $pass) {
-		$pass = $this->hashPass($pass);
+	static function get($table, $params) {
+		$className = strtoupper($table);
+		include_once 'classes/' . $className . '.class.php';
 
-		include 'classes/Attendee.class.php';
+		$data = array();
+		$allNulls = true;
 
 		try {
-			$stmt = $this->dbh->prepare("SELECT idattendee, name, role FROM attendee WHERE name = :name AND password = :pass");
-			$stmt->bindParam(':name', $name, PDO::PARAM_STR);
-			$stmt->bindParam(':pass', $pass, PDO::PARAM_STR);
-			$stmt->execute();
+			$select = "SELECT ";
+			$where = "WHERE ";
 
-			$stmt->setFetchMode(PDO::FETCH_CLASS, "Attendee");
-
-			if($stmt->rowCount() > 0) {
-				return $stmt->fetch();
+			foreach ($params as $key => $value) {
+				$select .= $key . ",";
+				if($value !== null) {
+					$where .= $key . " = :" . $key . " AND ";
+					$allNulls = false;
+				}
 			}
 
-			return null;
+			$select = trim($select, ",");
+			$select .= " FROM " . $table;
+			$where = trim($where, " AND ");
+			$query = ($allNulls) ? $select : $select . " " . $where;
+
+			$stmt = self::init()->prepare($query);
+
+			foreach ($params as $key => $value) {
+				if($value !== null) {
+					$stmt->bindValue($key, $value);
+				}
+			}
+
+			$stmt->execute();
+
+			$stmt->setFetchMode(PDO::FETCH_CLASS, $className);
+
+			while($d = $stmt->fetch()) {
+				$data[] = $d;
+			}
+			
+			return $data;
 		} catch (PDOException $e) {
 			// display the error message
 			echo $e->getMessage();
-			return null;
+			return array();
 		}
-	}
-
-	function hashPass($pass) {
-		return hash('sha256', $pass);
-	}
+	}	
 }
+
+?>

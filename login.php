@@ -5,14 +5,16 @@ session_start();
 $name = trim($_POST['name']);
 $pass = trim($_POST['pass']);
 
-require_once 'PDO.DB.php';
+include 'classes/Attendee.class.php';
 
-$db = new DB();
+$attendee = new Attendee();
+$attendee->setName($name);
+$attendee->setPassword($pass);
 
-$attendee = $db->login($name, $pass);
-
-if($attendee != null) {
+if($attendee->login()) {
 	$_SESSION['attendee']['id'] = $attendee->getIdAttend();
 	$_SESSION['attendee']['name'] = $attendee->getName();
 	$_SESSION['attendee']['role'] = $attendee->getRole();
 }
+
+header('Location: index.php');

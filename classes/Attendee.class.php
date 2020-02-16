@@ -1,27 +1,55 @@
 <?php
+include_once 'PDO.DB.php';
 
 class Attendee {
 	private $idattendee;
 	private $name;
+	private $password;
 	private $role;
 
-	public function getIdAttend() {
+	function getIdAttend() {
 		return $this->idattendee;
 	}
 
-	public function getName() {
+	function getName() {
 		return $this->name;
 	}
 
-	public function getRole() {
+	function getRole() {
 		return $this->role;
 	}
 
-	public function authenticate($name, $password) {
-		if($name == $this->name && $password == $this->password) {
-			return true;
-		}
+	function setName($name) {
+		$this->name = $name;
+	}
 
-		return false;
+	function setPassword($password) {
+		$this->password = $this->hashPassword($password);
+	}
+
+	function login() {
+		try {
+			$data = DB::get('attendee', array('idattendee'=>null, 'name'=>$this->name, 'password'=>$this->password,'role'=>null));
+			// $stmt = DB::init()->prepare("SELECT idattendee, name, role FROM attendee WHERE name = :name AND password = :pass");
+			// $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
+			// $stmt->bindParam(':pass', $this->password, PDO::PARAM_STR);
+			// $stmt->execute();
+
+			// $stmt->setFetchMode(PDO::FETCH_CLASS, "Attendee");
+
+			// if($stmt->rowCount() > 0) {
+			// 	return true;
+			// }
+
+			return count($data) > 0;
+		} catch (PDOException $e) {
+			// display the error message
+			echo $e->getMessage();
+			return false;
+		}
+	}
+
+	private function hashPassword($pass) {
+		return hash('sha256', $pass);
 	}
 }

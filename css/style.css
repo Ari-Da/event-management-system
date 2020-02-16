@@ -19,3 +19,20 @@ span.required {
 	color: red;
 	margin: 0 5px;
 }
+
+.fas {
+	color: gold;
+	margin: 0 3px;
+}
+
+.container {
+	padding: 20px 0;
+}
+
+.card-deck {
+	margin: 10px 0;
+}
+
+.card-deck > .card {
+	width: 30% !important;
+}
