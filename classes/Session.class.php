@@ -1,4 +1,6 @@
 <?php
+include_once 'PDO.DB.php';
+
 class Session {
 	private $idsession;
 	private $name;
@@ -29,5 +31,15 @@ class Session {
 
 	function getEnddate() {
 		return $this->enddate;
+	}
+
+	function toArray() {
+		$this->startdate = $this->formatDate($this->startdate);
+		$this->enddate = $this->formatDate($this->enddate);
+		return implode("|", get_object_vars($this));
+	}
+
+	private function formatDate($date) {
+		return date("M j, Y G:i", strtotime($date));
 	}
 }

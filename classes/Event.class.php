@@ -30,21 +30,8 @@ class Event {
 	}
 
 	function getSessions() {
-		include_once 'classes/Session.class.php';
-		$sessions = array();
-
 		try {
-			$stmt = DB::init()->prepare("SELECT idsession, name, numberallowed, event, startdate, enddate FROM session WHERE event = :id");
-			$stmt->bindParam(':id', $this->idevent, PDO::PARAM_INT);
-			$stmt->execute();
-
-			$stmt->setFetchMode(PDO::FETCH_CLASS, "Session");
-
-			while($session = $stmt->fetch()) {
-				$sessions[] = $session;
-			}
-
-			return $sessions;
+			return DB::get('session', array('idsession'=>null, 'name'=>null, 'numberallowed'=>null, 'event'=>$this->idevent, 'startdate'=>null, 'enddate'=>null));
 		} catch (PDOException $e) {
 			// display the error message
 			echo $e->getMessage();
@@ -53,20 +40,8 @@ class Event {
 	}
 
 	function getVenue() {
-		include_once 'classes/Venue.class.php';
-
 		try {
-			$stmt = DB::init()->prepare("SELECT idvenue, name, capacity FROM venue WHERE idvenue = :id");
-			$stmt->bindParam(':id', $this->venue, PDO::PARAM_INT);
-			$stmt->execute();
-
-			$stmt->setFetchMode(PDO::FETCH_CLASS, "Venue");
-
-			if($stmt->rowCount() > 0) {
-				return $stmt->fetch();
-			}
-
-			return null;
+			return DB::get('venue', array('idvenue'=>$this->venue, 'name'=>null, 'capacity'=>null))[0];
 		} catch (PDOException $e) {
 			// display the error message
 			echo $e->getMessage();
@@ -75,26 +50,23 @@ class Event {
 	}
 
 	function getAllEvents() {
-		include_once 'classes/Event.class.php';
-		$events = array();
-
 		try {
-			$events = DB::get('event', array('idevent'=>null, 'name'=>null, 'datestart'=>null, 'dateend'=>null,'numberallowed'=>null, 'venue'=>null));
-			// $stmt = DB::init()->prepare("SELECT idevent, name, datestart, dateend, numberallowed, venue FROM event");
-			// $stmt->execute();
-
-			// $stmt->setFetchMode(PDO::FETCH_CLASS, "Event");
-
-			// while($event = $stmt->fetch()) {
-			// 	$events[] = $event;
-			// }
-
-			return $events;
+			return DB::get('event', array('idevent'=>null, 'name'=>null, 'datestart'=>null, 'dateend'=>null,'numberallowed'=>null, 'venue'=>null));
 		} catch (PDOException $e) {
 			// display the error message
 			echo $e->getMessage();
 			return array();
 		}
+	}
+
+	function toArray() {
+		$this->datestart = $this->formatDate($this->datestart);
+		$this->dateend = $this->formatDate($this->dateend);
+		return implode("|", get_object_vars($this));
+	}
+
+	private function formatDate($date) {
+		return date("M j, Y G:i", strtotime($date));
 	}
 }
 

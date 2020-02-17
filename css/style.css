@@ -22,7 +22,7 @@ span.required {
 
 .fas {
 	color: gold;
-	margin: 0 3px;
+	margin: 0 7px;
 }
 
 .container {
@@ -35,4 +35,37 @@ span.required {
 
 .card-deck > .card {
 	width: 30% !important;
+}
+
+h5.card-title {
+	font-weight: bold;
+}
+
+p.sessions {
+	text-align: center;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+div.card-body ul {
+	margin: auto;
+	width: 70%;
+	padding: 0;
+}
+
+div.card-body li {
+	font-weight: bold;
+	text-align: center;
+	margin: 7px 0;
+	color: black;
+}
+
+div.card-body li:hover {
+	background-color: gold;
+	color: white;
+}
+
+h5.card-title, a.no_underline {
+	cursor: pointer;
+	text-decoration: none !important;
 }

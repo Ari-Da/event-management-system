@@ -1,39 +1,62 @@
-<?php include 'utilities.php'; ?>
+<?php 
+include 'utilities.php'; 
+include 'templates/event_modal.html';
+?>
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Events</title>
-  </head>
-  <body>
-  	<div class="container">
-	  	<?php for ($i = 0; $i < count($events); $i++) { 
-	  		if($i == 0) { ?>
-	  		<div class="card-deck">
-	  		<?php } else if($i % 3 == 0) { ?>
-	  		</div><div class="card-deck">
-	  		<?php } ?>
-		  <div class="card border-dark mb-3">
-		    <div class="card-header">
-		      <h5 class="card-title"><?php echo $events[$i]->getName(); ?></h5>
-		      <p class="card-text">
-		      	<i class="fas fa-map-marker"></i><?php echo $events[$i]->getVenue()->getName(); ?>
-		      </p>
-		      <p class="card-text">
-		      	<i class="fas fa-calendar-alt"></i><?php echo formatDate($events[$i]->getDateStart()) . " - " . formatDate($events[$i]->getDateEnd()); ?>
-		      </p>
-		    </div>
 
-		    <div class="card-body text-dark">
-		    <?php 
-		    	foreach ($events[$i]->getSessions() as $session) {
-		    ?>
-		    	<li class="list-group-item"><?php echo $session->getName(); ?></li>
-		    <?php } ?>
-		    	</ul>
-		    </div>
-		  </div>
-		<?php } ?>
-	</div>
-  </body>
+<head>
+	<meta charset="UTF-8">
+	<title>Events</title>
+
+	<script>
+		$(function() {
+			$('h5.card-title').hover(
+			  function() {
+			    $(this).parent().parent().addClass('shadow-lg');
+			  }, function() {
+			    $(this).parent().parent().removeClass('shadow-lg');
+			  }
+			);
+		});
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<?php for ($i = 0; $i < count($events); $i++) { 
+	  		if($i == 0) { ?>
+		<div class="card-deck">
+			<?php } else if($i % 3 == 0) { ?>
+		</div>
+		<div class="card-deck">
+			<?php } ?>
+			<div class="card border-dark mb-3">
+				<div class="card-header">
+					<h5 class="card-title" data-toggle="modal" data-target="#eventModal" data-details="<?=$events[$i]->toArray() ?>" data-type="event"><?php echo $events[$i]->getName(); ?></h5>
+					<p class="card-text">
+						<i class="fas fa-map-marker"></i><?php echo $events[$i]->getVenue()->getName(); ?>
+					</p>
+					<p class="card-text">
+						<i class="fas fa-calendar-alt"></i><?php echo formatDate($events[$i]->getDateStart()) . " - " . formatDate($events[$i]->getDateEnd()); ?>
+					</p>
+				</div>
+
+				<div class="card-body text-dark">
+					<p class="card-text sessions">Sessions</p>
+					<ul>
+						<?php 
+					    	foreach ($events[$i]->getSessions() as $session) {
+					    ?>
+						<a class="no_underline" data-toggle="modal" data-target="#eventModal" data-details="<?=$session->toArray() ?>" data-type="session">
+							<li class="list-group-item"><?php echo $session->getName(); ?></li>
+						</a>
+						<?php } ?>
+					</ul>
+				</div>
+			</div>
+			<?php } ?>
+		</div>
+</body>
+
 </html>

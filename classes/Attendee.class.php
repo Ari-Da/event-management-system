@@ -30,16 +30,6 @@ class Attendee {
 	function login() {
 		try {
 			$data = DB::get('attendee', array('idattendee'=>null, 'name'=>$this->name, 'password'=>$this->password,'role'=>null));
-			// $stmt = DB::init()->prepare("SELECT idattendee, name, role FROM attendee WHERE name = :name AND password = :pass");
-			// $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
-			// $stmt->bindParam(':pass', $this->password, PDO::PARAM_STR);
-			// $stmt->execute();
-
-			// $stmt->setFetchMode(PDO::FETCH_CLASS, "Attendee");
-
-			// if($stmt->rowCount() > 0) {
-			// 	return true;
-			// }
 
 			return count($data) > 0;
 		} catch (PDOException $e) {
