@@ -1,7 +1,5 @@
 <?php 
 
-include_once 'templates/banner.php';
-
-
+include_once 'templates/nav.php';
 
 ?>

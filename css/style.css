@@ -7,7 +7,7 @@
 }
 
 span.navbar-text {
-	margin: 0 1%;
+	margin: 0;
 }
 
 div.container > form {
@@ -61,11 +61,17 @@ div.card-body li {
 }
 
 div.card-body li:hover {
-	background-color: gold;
+	background-color: #FFD700;
 	color: white;
 }
 
 h5.card-title, a.no_underline {
 	cursor: pointer;
 	text-decoration: none !important;
+}
+
+.error {
+	margin: 15px auto;
+	text-align: center;
+	color: red;
 }

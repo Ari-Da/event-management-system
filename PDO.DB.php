@@ -54,6 +54,8 @@ class DB {
 			while($d = $stmt->fetch()) {
 				$data[] = $d;
 			}
+
+			// $stmt->debugDumpParams();
 			
 			return $data;
 		} catch (PDOException $e) {
@@ -62,6 +64,27 @@ class DB {
 			return array();
 		}
 	}	
+
+	function set($query, $params) {
+		try {
+			$stmt = self::init()->prepare($query);
+			
+			foreach ($params as $key => $value) {
+				$stmt->bindValue($key, $value);
+			}
+
+			if(!$stmt->execute()) {
+				return 0;
+			}
+			// $stmt->debugDumpParams();
+
+			return $stmt->rowCount();
+		} catch (PDOException $e) {
+			// display the error message
+			echo $e->getMessage();
+			return 0;
+		}
+	}
 }
 
 ?>

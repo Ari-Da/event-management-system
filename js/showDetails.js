@@ -3,6 +3,7 @@ $(function() {
 		let link = $(e.relatedTarget); 
 		let details = link.data('details').split('|');
 		let type = link.data('type');
+		let registered = parseInt(link.data('registered'));
 		let modal = $(this);
 		let num = '';
 		let date = '';
@@ -22,6 +23,7 @@ $(function() {
 		modal.find('.modal-title').text(title);
 		modal.find('#num_allowed').html('<i class="fas fa-user-friends"></i>Number of participants: ' + num);
 		modal.find('#dates').html('<i class="fas fa-calendar-alt"></i>' + date);
+		modal.find('div.modal-footer > button[type="button"]').text((registered == 1) ? 'Unregister' : 'Register');
 	});	
 
 	$('#eventModal').on('hidden.bs.modal', function (e) {
@@ -29,5 +31,6 @@ $(function() {
 		modal.find('.modal-title').empty();
 		modal.find('#num_allowed').empty();
 		modal.find('#dates').empty();
+		modal.find('div.modal-footer > button[type="button"]').empty();
 	});	
 });

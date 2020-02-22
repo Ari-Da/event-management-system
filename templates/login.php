@@ -15,7 +15,8 @@
 		    <label for="pass">Password</label><span class="required">*</span>
 		    <input type="password" class="form-control" id="pass" name="pass" required>
 		  </div>
-		  <button type="submit" class="btn btn-warning">Submit</button>
+		  <button type="submit" class="btn btn-warning w-100">Submit</button>
+		  <?php if(isset($_GET['error'])) { echo "<p class='error'>This is a danger alert—check it out!</p>"; } ?>
 		</form>
   	</div>
   </body>
