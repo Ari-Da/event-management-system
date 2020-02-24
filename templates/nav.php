@@ -3,10 +3,10 @@ $FILE_NAME = basename($_SERVER['PHP_SELF']);
 
 $event_url = "";
 
-if(isset($_SESSION['user'])) {
-	$role = intval($_SESSION['user']['role']);
-	$event_url = getEventComponent($role);
-}
+// if(isset($_SESSION['user'])) {
+// 	$role = intval($_SESSION['user']['role']);
+// 	$event_url = getEventComponent($role);
+// }
 ?>
 
 <!DOCTYPE html>

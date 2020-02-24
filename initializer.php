@@ -17,16 +17,4 @@ function startAttendeeSession($a) {
 	$_SESSION['user']['role'] = $a->getRole();
 }
 
-function getEventComponent($role) {
-	$url = "";
-	switch($role) {
-		case 3: $url = "components/attendee/events.php"; break;
-		case 2: $url = "components/manager/events.php"; break;
-		case 1: $url = "components/admin/events.php"; break;
-		default: $url = ""; break;
-	}
-
-	return $url;
-}
-
 
