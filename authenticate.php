@@ -10,29 +10,14 @@ $attendee->setPassword($pass);
 
 if($type == 0 && $attendee->login()) {
 	startAttendeeSession($attendee);
-
-	if($attendee->getRole() == 3) {
-		header('Location: components/attendee/events.php');
-	}
-	else if($attendee->getRole() == 2) {
-
-	}
-	else if($attendee->getRole() == 1) {
-		
-	}
+	header('Location: ' . getEventComponent($attendee->getRole()));
 }
 else if($type == 1 && $attendee->insert()) {
 	$attendee->setRole(3);
 	startAttendeeSession($attendee);
-	header('Location: events.php');
+	header('Location: ' . getEventComponent($attendee->getRole()));
 }
 else {
 	header('Location: user.php?' . ($type == 0 ? 'error' : 'duplicate'));
 }
 
-function startAttendeeSession($a) {
-	session_regenerate_id();
-	$_SESSION['user']['id'] = $a->getIdAttendee();
-	$_SESSION['user']['name'] = $a->getName();
-	$_SESSION['user']['role'] = $a->getRole();
-}

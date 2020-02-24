@@ -69,6 +69,15 @@ class Attendee {
 		}
 	}
 
+	function getSessions() {
+		try {
+			return DB::get('attendee_session', array('session'=>null, 'attendee'=>$this->idattendee));
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+			return array();
+		}
+	}
+
 	function insert() {
 		try {
 			$query = "INSERT INTO attendee(name, password, role) VALUES(:name, :pass, :role)";

@@ -91,5 +91,5 @@
 		</div>
 	</div>
 
-	<script src="../../js/animate.js"></script>
+	<script src="<?=HTTP_URL ?>js/animate.js"></script>
 </body>

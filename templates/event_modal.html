@@ -13,18 +13,28 @@
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <div class="modal-body">
-	      	<p class="card-text" id="num_allowed"></p>
-	      	<p class="card-text" id="dates"></p>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-warning"></button>
-	      </div>
+	      <form method="post" action="register_delete.php">
+		      <div class="modal-body">
+		      	<p class="card-text" id="num_allowed"></p>
+		      	<p class="card-text" id="dates"></p>
+		      	<div class="card-text form-group row" id="paid_amount">
+		      		<label for="paid" class="col-sm-3 col-form-label"><i class="fas fa-money-bill-wave"></i>Paying:</label>
+		      		<div class="col-sm-5">
+		      			<input class="form-control" type="number" id="paid" name="paid" value="0" min="0"/>
+		      		</div>
+			    </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="submit" class="btn btn-warning" name="submitBtn" value=""></button>
+		      </div>
+		      <input type="hidden" id="id" name="id" value=""/>
+		      <input type="hidden" id="type" name="type" value=""/>
+	  	  </form>
 	    </div>
 	  </div>
 	</div>
 
 
-    <script src="../../js/showDetails.js"></script>
+    <script src="<?=HTTP_URL ?>js/showDetails.js"></script>
   </body>
 </html>

@@ -10,7 +10,14 @@ include 'templates/nav.php';
   </head>
   <body>
   	<div class="container">
-  		<form id=login-form method="post" action="authenticate.php">
+  		<form id="authenticate-form" method="post" action="authenticate.php">
+        <h4>        
+        <?php if(isset($_POST['login']) || isset($_GET['error'])) { ?>
+          Login form
+        <?php } else if(isset($_POST['signup']) || isset($_GET['duplicate'])) { ?>
+          Registration form
+        <?php } ?>
+        </h4>
   		  <input type="hidden" name="type" value="<?=(isset($_POST['login'])) ? 0 : 1  ?>" />
 		  <div class="form-group">
 		    <label for="name">Full name</label><span class="required">*</span>
@@ -30,10 +37,10 @@ include 'templates/nav.php';
 		</form>
   		<?php 
   			if(isset($_GET['error'])) { 
-  				echo "<p class='error'>Username or password is incorrect!</p>"; 
+  				echo "<p class='info error'>Username or password is incorrect!</p>"; 
   			} 
   			else if(isset($_GET['duplicate'])) {
-  				echo "<p class='error'>Username and password already exists!</p>"; 
+  				echo "<p class='info error'>Username and password already exists!</p>"; 
   			}
   		?>
   	</div>
