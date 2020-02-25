@@ -5,7 +5,7 @@ spl_autoload_register(function ($class) {
 	include "classes/$class.class.php";
 });
 
-session_set_cookie_params(60 * 60);
+session_set_cookie_params(4 * 3600);
 session_name('user');
 session_start();
 

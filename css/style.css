@@ -93,3 +93,25 @@ footer {
 	bottom: 0 !important;
 	color: white;
 }
+
+label.input-group-text {
+	width: 100%;
+}
+
+div.input-group-prepend {
+	width: 40%;
+}
+
+div.input-group {
+	margin-bottom: 5px;
+}
+
+div#editEvent div.input-group input {
+	width: 60%;
+	padding: 0 10px;
+	border: 1px solid gray;
+}
+
+th > button {
+	width: 72px;
+}

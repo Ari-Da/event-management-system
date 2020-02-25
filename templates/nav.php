@@ -26,9 +26,15 @@ $event_url = "";
 		      </li>
 		      <?php if(isset($_SESSION['user'])) { ?>
 		      	<li class="nav-item <?php if ($FILE_NAME == 'events.php') { echo 'active'; } ?>">
-			        <a class="nav-link" href="components/events.php">Events</a>
+			        <a class="nav-link" href="<?=HTTP_URL ?>components/events.php">Events</a>
 			    </li>
-		      <?php } ?>
+		      <?php if($_SESSION['user']['role'] == 2) { ?>
+		      	<li class="nav-item <?php if ($FILE_NAME == 'manage.php') { echo 'active'; } ?>">
+			        <a class="nav-link" href="<?=HTTP_URL ?>components/manager/manage.php">Manage</a>
+			    </li>
+		      <?php } 
+		  		}
+		  	  ?>
 		    </ul>
 
 		    <?php if(!isset($_SESSION['user'])) { ?>
