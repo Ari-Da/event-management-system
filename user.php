@@ -47,4 +47,6 @@ include 'templates/nav.php';
   </body>
 </html>
 
-
+<?php
+include 'templates/footer.html';
+?>

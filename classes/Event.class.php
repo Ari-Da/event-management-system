@@ -127,14 +127,47 @@ class Event {
 	}
 
 	function delete() {
-		try {
-			$query = 'DELETE FROM event WHERE idevent = :id';
-			$params = array('id'=>$this->idevent);
-			$deleted = DB::set($query, $params);
+		$success = false;
 
-			return $deleted > 0;
+		try {
+			if(DB::startTransaction()) {
+				$query = 'DELETE FROM event WHERE idevent = :id';
+				$params = array('id'=>$this->idevent);
+				$deleted = DB::set($query, $params, true);
+
+				if($deleted > 0) {
+					// throw new PDOException();
+					if(Manager_event::delete($this->idevent)) {
+						$success = true;
+						DB::commitTransaction();
+					}
+					else {
+						$success = false;
+						DB::rollTransaction();
+					}
+				}
+				else {
+					$success = false;
+					DB::rollTransaction();
+				}
+			}
+
+			return $success;
 		} catch (PDOException $e) {
+			DB::rollTransaction();
 			return false;
+		}
+	}
+
+	function insert() {
+		try {
+			$inserted = DB::set('INSERT INTO event(name, datestart, dateend, numberallowed, venue) VALUES(:name, :datestart, :dateend, :numberallowed, :venue)', array('name'=>$this->name, 'datestart'=>$this->datestart, 'dateend'=>$this->dateend, 'numberallowed'=>$this->numberallowed, 'venue'=>$this->venue));
+			
+			return $inserted;
+		} catch (PDOException $e) {
+			// display the error message
+			echo $e->getMessage();
+			return 0;
 		}
 	}
 }

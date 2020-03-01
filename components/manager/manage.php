@@ -5,7 +5,8 @@
 
 	include 'templates/nav.php';
 	include 'templates/edit_event.html';
-	include 'utilities.php'; 
+	include 'templates/add_event.html';
+	// include 'utilities.php'; 
 
 	$me = new Manager_event();
 	$me->setManager($_SESSION['user']['id']);
@@ -26,12 +27,24 @@
 		$info = '';
 		if(isset($_GET['error'])) {
 			$info = '<p class="info error">Could not ';
-			$info .= ($_GET['error'] == 'update') ? 'edit' : 'delete';
+
+			switch($_GET['error']) {
+				case 'update': $info .= 'edit'; break;
+				case 'delete': $info .= 'delete'; break;
+				case 'insert': $info .= 'insert'; break;
+			}
+
 			$info .= ' successfully!</p>';
 		}
 		else if(isset($_GET['success'])) {
 			$info = '<p class="info success"> ';
-			$info .= ($_GET['success'] == 'update') ? 'Editting' : 'Deletion';
+
+			switch($_GET['success']) {
+				case 'update': $info .= 'Editting'; break;
+				case 'delete': $info .= 'Deletion'; break;
+				case 'insert': $info .= 'Insertion'; break;
+			}
+
 			$info .= ' was successful!</p>';
 		}
 
@@ -47,7 +60,7 @@
 	      <th scope="col">Number of participants</th>
 	      <th scope="col">Venue</th>
 	      <th scope="col"></th>
-	      <th scope="col"></th>
+	      <th scope="col"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addEvent">Add</button></th>
 	    </tr>
 	  </thead>
 	  <tbody>

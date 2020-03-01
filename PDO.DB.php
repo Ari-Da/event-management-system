@@ -5,8 +5,11 @@ class DB {
 
 	static function init() {
 		try {
-			self::$db = new PDO("mysql:host={$_SERVER['DB_SERVER']};dbname={$_SERVER['DB']}", $_SERVER['DB_USER'], '');
-			self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			if(is_null(self::$db)) {
+				self::$db = new PDO("mysql:host={$_SERVER['DB_SERVER']};dbname={$_SERVER['DB']}", $_SERVER['DB_USER'], '');
+				self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			}
+
 			return self::$db;
 		} catch (PDOException $e) {
 			// display the error message
@@ -65,9 +68,10 @@ class DB {
 		}
 	}	
 
-	function set($query, $params) {
+	static function set($query, $params, $count = false) {
+		$db = self::init();
 		try {
-			$stmt = self::init()->prepare($query);
+			$stmt = $db->prepare($query);
 			
 			foreach ($params as $key => $value) {
 				$stmt->bindValue($key, $value);
@@ -78,11 +82,47 @@ class DB {
 			}
 			// $stmt->debugDumpParams();
 
-			return $stmt->rowCount();
+			if($count) {
+				return $stmt->rowCount();
+			}
+			else {
+				return $db->lastInsertId();
+			}
+
 		} catch (PDOException $e) {
 			// display the error message
 			echo $e->getMessage();
 			return 0;
+		}
+	}
+
+	static function startTransaction() {
+		try {
+			return self::init()->beginTransaction();
+		} catch (PDOException $e) {
+			// display the error message
+			echo $e->getMessage();
+			return false;
+		}
+	}
+
+	static function commitTransaction() {
+		try {
+			return self::init()->commit();
+		} catch (PDOException $e) {
+			// display the error message
+			echo $e->getMessage();
+			return false;
+		}
+	}
+
+	static function rollTransaction() {
+		try {
+			return self::init()->rollBack();
+		} catch (PDOException $e) {
+			// display the error message
+			echo $e->getMessage();
+			return false;
 		}
 	}
 }

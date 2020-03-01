@@ -30,7 +30,7 @@ class Attendee_session {
 		try {
 			$query = "INSERT INTO attendee_session(session, attendee) VALUES(:session, :attendee)";
 			$params = array("session"=>$this->session, "attendee"=>$this->attendee);
-			$inserted = DB::set($query, $params);
+			$inserted = DB::set($query, $params, true);
 
 			return $inserted > 0;
 		} catch (PDOException $e) {

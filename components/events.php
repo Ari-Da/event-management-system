@@ -93,3 +93,7 @@
 
 	<script src="<?=HTTP_URL ?>js/animate.js"></script>
 </body>
+
+<?php
+include 'templates/footer.html';
+?>

@@ -35,4 +35,28 @@ class Manager_event {
 			return array();
 		}
 	}
+
+	static function delete($id) {
+		try {
+			$query = 'DELETE FROM manager_event WHERE event = :id';
+			$params = array('id' => $id);
+			$deleted = DB::set($query, $params, true);
+
+			return $deleted > 0;
+		} catch (PDOException $e) {
+			return false;
+		}
+	}
+
+	function insert() {
+		try {
+			$query = 'INSERT INTO manager_event(event, manager) VALUES(:event, :manager)';
+			$params = array('event' => $this->event, 'manager' => $this->manager);
+			$inserted = DB::set($query, $params);
+
+			return $inserted > 0;
+		} catch (PDOException $e) {
+			return false;
+		}
+	}
 }

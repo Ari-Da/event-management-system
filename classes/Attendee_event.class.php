@@ -51,7 +51,7 @@ class Attendee_event {
 		try {
 			$query = "DELETE FROM attendee_event WHERE event = :event AND attendee = :attendee";
 			$params = array("event"=>$this->event, "attendee"=>$this->attendee);
-			$deleted = DB::set($query, $params);
+			$deleted = DB::set($query, $params, true);
 
 			return $deleted > 0;
 		} catch (PDOException $e) {

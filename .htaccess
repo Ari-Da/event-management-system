@@ -5,4 +5,4 @@ SetEnv DB_USER root
 
 php_value include_path 'C:/xampp/htdocs/server-dev/projects/Project 1/event-management-system'
 php_value auto_prepend_file 'initializer.php'
-php_value auto_append_file 'templates/footer.html'
+#php_value auto_append_file 'templates/footer.html' 
