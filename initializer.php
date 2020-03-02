@@ -1,5 +1,5 @@
 <?php
-define("HTTP_URL", "http://$_SERVER[HTTP_HOST]/~ad2104/756/projects/event-management-system/");
+define("HTTP_URL", "http://$_SERVER[HTTP_HOST]/server-dev/projects/Project 1/event-management-system/");
 
 spl_autoload_register(function ($class) {
 	include "classes/$class.class.php";

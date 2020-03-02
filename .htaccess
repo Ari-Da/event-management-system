@@ -1,8 +1,8 @@
 SetEnv DB ad2104
 SetEnv DB_SERVER localhost
-SetEnv DB_USER ad2104
+SetEnv DB_USER root
 SetEnv DB_PASSWORD gonekill
 
-php_value include_path '/home/MAIN/ad2104/Sites/756/projects/event-management-system/'
+php_value include_path 'C:\xampp\htdocs\server-dev\projects\Project 1\event-management-system/'
 php_value auto_prepend_file 'initializer.php'
 #php_value auto_append_file 'templates/footer.html' 

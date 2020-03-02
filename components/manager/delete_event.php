@@ -1,9 +1,21 @@
 <?php 
 
-$event = new Event();
-$event->setIdEvent(intval($_POST['id']));
+$id = intval($_POST['id']);
 
-if($event->delete()) {
+$type = '';
+if(isset($_GET['type']))
+	$type = $_GET['type'];
+
+if($type == 'event') {
+	$obj = new Event();
+	$obj->setIdEvent($id);
+}
+else if($type == 'session') {
+	$obj = new Session();
+	$obj->setIdSession($id);
+}
+
+if($obj != null && $obj->delete()) {
 	header('Location: manage.php?success=delete');
 }
 else {

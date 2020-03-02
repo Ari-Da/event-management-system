@@ -2,34 +2,52 @@ $(function() {
 	$('#editEvent').on('shown.bs.modal', function (e) {
 		let link = $(e.relatedTarget); 
 		let details = link.data('details').split('|');
+		let type = link.data('type');
 		let id = parseInt(details[0]);
 
 		let modal = $(this);
 		let name = details[1];
-		let start = details[2];
-		let end = details[3];
-		let allowed= details[4];
-		let venue = details[5];
+		let start;
+		let end;
+		let allowed;
+		let venue;
+		let title;
+		let event;
 
-		// if(type == 'session') {
-		// 	title = details[1] + ' session';
-		// 	num = details[2];
-		// 	date = details[4] + ' - ' + details[5];
-		// }
-		// else if(type == 'event') {
-		// 	title = details[1] + ' event';
-		// 	num = details[4];
-		// 	date = details[2] + ' - ' + details[3];
-		// }
+		if(type == 'event') {
+			title = 'Event modification';
+			start = details[2];
+			end = details[3];
+			allowed= details[4];
+			venue = details[5];
+		}
+		else {
+			title = 'Session modification';
+			start = details[4];
+			end = details[5];
+			allowed = details[2];
+			event = details[3];
+		}
 
-		modal.find('.modal-title').text('Event modification');
+		modal.find('.modal-title').text(title);
 		modal.find('#name').val(name);
 		modal.find('#start').val(start);
 		modal.find('#end').val(end);
 		modal.find('#allowed').val(allowed);
-		modal.find('#venue').val(venue);
-		modal.find('input[type="hidden"]').val(id);
-		// modal.find('#type').val(type);
+
+		if(type == 'event') {
+			modal.find('form').attr('action', 'edit_event.php?type=event');
+			modal.find('#venue').val(venue);
+			modal.find('div.input-group > #venue').parent().show();
+		}
+		else {
+			modal.find('form').attr('action', 'edit_event.php?type=session');
+			modal.find('#event').val(event);
+			modal.find('div.input-group > #venue').parent().hide();
+		}
+
+		modal.find('#id').val(id);
+		modal.find('#type').val(type);
 	
 	});	
 
@@ -40,7 +58,8 @@ $(function() {
 		modal.find('#start').empty();
 		modal.find('#end').empty();
 		modal.find('#allowed').empty();
-		// modal.find('#venue').empty();
-		modal.find('input[type="hidden"]').empty();
+		modal.find('#event').empty();
+		modal.find('#id').empty();
+		modal.find('#type').empty();
 	});	
 });

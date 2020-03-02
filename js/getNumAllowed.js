@@ -11,7 +11,7 @@ function getNumAllowed(id) {
 			url: getUrl() + "/api/getNumAllowed.php?id=" + venue,
 			success: function(response) {
 				allowed.val(response);
-				allowed.prop("max", parseInt(response));
+				allowed.attr("max", parseInt(response));
 			}
 		})
     }

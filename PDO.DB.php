@@ -6,7 +6,7 @@ class DB {
 	static function init() {
 		try {
 			if(is_null(self::$db)) {
-				self::$db = new PDO("mysql:host={$_SERVER['DB_SERVER']};dbname={$_SERVER['DB']}", $_SERVER['DB_USER'], $_SERVER['DB_PASSWORD']);
+				self::$db = new PDO("mysql:host={$_SERVER['DB_SERVER']};dbname={$_SERVER['DB']}", $_SERVER['DB_USER'], '');
 				self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			}
 
@@ -80,7 +80,7 @@ class DB {
 			if(!$stmt->execute()) {
 				return 0;
 			}
-			// $stmt->debugDumpParams();
+			$stmt->debugDumpParams();
 
 			if($count) {
 				return $stmt->rowCount();

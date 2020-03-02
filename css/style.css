@@ -115,3 +115,12 @@ div.modal div.input-group input, div.modal div.input-group select {
 th > button {
 	width: 72px;
 }
+
+th[colspan="2"] > button {
+	width: 85%;
+}
+
+button.icon {
+	background-color: transparent;
+	border: none;
+}
