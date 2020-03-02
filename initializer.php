@@ -3,8 +3,11 @@ $dirname = dirname($_SERVER['SCRIPT_NAME']);
 $parts = explode("/", $dirname);
 $relative_dir_path = "";
 
-for($i = 0; $i <= 4; $i++) {
+for($i = 0; $i < count($parts); $i++) {
 	$relative_dir_path .= $parts[$i] . "/";
+	
+	if($parts[$i] == 'event-management-system')
+		break;
 }
 
 // var_dump($relative_dir_path);
