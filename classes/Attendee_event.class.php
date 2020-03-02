@@ -39,7 +39,7 @@ class Attendee_event {
 		try {
 			$query = "INSERT INTO attendee_event(event, attendee, paid) VALUES(:event, :attendee, :paid)";
 			$params = array("event"=>$this->event, "attendee"=>$this->attendee, "paid"=>$this->paid);
-			$inserted = DB::set($query, $params);
+			$inserted = DB::set($query, $params, true);
 
 			return $inserted > 0;
 		} catch (PDOException $e) {

@@ -6,7 +6,6 @@
 	include 'templates/nav.php';
 	include 'templates/edit_event.html';
 	include 'templates/add_event.html';
-	// include 'utilities.php'; 
 
 	$me = new Manager_event();
 	$me->setManager($_SESSION['user']['id']);
@@ -24,31 +23,7 @@
 <body>
 
 	<?php 
-		$info = '';
-		if(isset($_GET['error'])) {
-			$info = '<p class="info error">Could not ';
-
-			switch($_GET['error']) {
-				case 'update': $info .= 'edit'; break;
-				case 'delete': $info .= 'delete'; break;
-				case 'insert': $info .= 'insert'; break;
-			}
-
-			$info .= ' successfully!</p>';
-		}
-		else if(isset($_GET['success'])) {
-			$info = '<p class="info success"> ';
-
-			switch($_GET['success']) {
-				case 'update': $info .= 'Editting'; break;
-				case 'delete': $info .= 'Deletion'; break;
-				case 'insert': $info .= 'Insertion'; break;
-			}
-
-			$info .= ' was successful!</p>';
-		}
-
-		echo $info;
+		getMessage();
 	?>
 
 	<table class="table">
@@ -70,6 +45,9 @@
 	  			$e->setIdEvent($event->getEvent());
 	  			$info = $e->getEvent();
 	  			// var_dump($info);
+	  			$venue = new Venue();
+	  			$venue->setIdVenue($info->getVenueId());
+	  			$venueName = $venue->getVenue()->getName();
 	  	?>
 	  	<thead class="thead-light">
 		    <tr>
@@ -77,7 +55,7 @@
 		      <th scope="col"><?=$info->getDateStart() ?></th>
 		      <th scope="col"><?=$info->getDateEnd() ?></th>
 		      <th scope="col"><?=$info->getNumberallowed() ?></th>
-		      <th scope="col"><?=$info->getVenueId() ?></th>
+		      <th scope="col"><?=$venueName ?></th>
 		      <th scope="col"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editEvent" data-details="<?=$e->toArray() ?>">Edit</button></th>
 		      <th scope="col">
 		      	<form method="post" action="delete_event.php">

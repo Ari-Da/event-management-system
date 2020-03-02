@@ -42,11 +42,11 @@ class Event {
 	}
 
 	function setDateStart($datestart) {
-		$this->datestart = $datestart;
+		$this->datestart = formatDateForDb($datestart);
 	}
 
 	function setDateEnd($dateend) {
-		$this->dateend = $dateend;
+		$this->dateend = formatDateForDb($dateend);
 	}
 
 	function setAllowed($allowed) {
@@ -117,8 +117,8 @@ class Event {
 	function update() {
 		try {
 			$query = 'UPDATE event SET name = :name, datestart = :datestart, dateend = :dateend, numberallowed = :allowed, venue = :venue WHERE idevent = :id';
-			$params = array('name' => $this->name, 'datestart' => date('Y-m-d H:m:s', strtotime($this->datestart)), 'dateend' => date('Y-m-d H:m:s', strtotime($this->dateend)), 'allowed' => $this->numberallowed, 'venue' => $this->venue, 'id' => $this->idevent);
-			$updated = DB::set($query, $params);
+			$params = array('name' => $this->name, 'datestart' => $this->datestart, 'dateend' => $this->dateend, 'allowed' => $this->numberallowed, 'venue' => $this->venue, 'id' => $this->idevent);
+			$updated = DB::set($query, $params, true);
 
 			return $updated > 0;
 		} catch (PDOException $e) {
@@ -161,7 +161,9 @@ class Event {
 
 	function insert() {
 		try {
-			$inserted = DB::set('INSERT INTO event(name, datestart, dateend, numberallowed, venue) VALUES(:name, :datestart, :dateend, :numberallowed, :venue)', array('name'=>$this->name, 'datestart'=>$this->datestart, 'dateend'=>$this->dateend, 'numberallowed'=>$this->numberallowed, 'venue'=>$this->venue));
+			$query = 'INSERT INTO event(name, datestart, dateend, numberallowed, venue) VALUES(:name, :datestart, :dateend, :numberallowed, :venue)';
+			$params = array('name'=>$this->name, 'datestart'=>$this->datestart, 'dateend'=>$this->dateend, 'numberallowed'=>$this->numberallowed, 'venue'=>$this->venue);
+			$inserted = DB::set($query, $params);
 			
 			return $inserted;
 		} catch (PDOException $e) {

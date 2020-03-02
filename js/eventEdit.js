@@ -40,7 +40,7 @@ $(function() {
 		modal.find('#start').empty();
 		modal.find('#end').empty();
 		modal.find('#allowed').empty();
-		modal.find('#venue').empty();
+		// modal.find('#venue').empty();
 		modal.find('input[type="hidden"]').empty();
 	});	
 });

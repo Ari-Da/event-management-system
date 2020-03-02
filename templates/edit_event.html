@@ -1,3 +1,7 @@
+<?php 
+$venues = Venue::getAllVenues();
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -47,7 +51,11 @@
 				  <div class="input-group-prepend">
 				  	<label for="venue" class="input-group-text">Venue:</label>
 				  </div>
-				  <input type="number" id="venue" name="venue" min="1" required></input>
+				  <select id="venue" name="venue" onchange="getNumAllowed(this.value)">
+				  	<?php foreach($venues as $venue) { ?>
+				  	<option value="<?=$venue->getIdVenue(); ?>"><?= $venue->getName(); ?></option>
+				  	<?php } ?>
+				  </select>
 				</div>
 		      </div>
 

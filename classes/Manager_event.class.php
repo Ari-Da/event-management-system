@@ -52,7 +52,7 @@ class Manager_event {
 		try {
 			$query = 'INSERT INTO manager_event(event, manager) VALUES(:event, :manager)';
 			$params = array('event' => $this->event, 'manager' => $this->manager);
-			$inserted = DB::set($query, $params);
+			$inserted = DB::set($query, $params, true);
 
 			return $inserted > 0;
 		} catch (PDOException $e) {

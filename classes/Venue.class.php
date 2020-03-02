@@ -18,6 +18,10 @@ class Venue {
 		return $this->capacity;
 	}
 
+	function setIdVenue($idvenue) {
+		$this->idvenue = $idvenue;
+	}
+
 	static function getAllVenues() {
 		try {
 			return DB::get('venue', array('idvenue'=>null, 'name'=>null, 'capacity'=>null));
@@ -31,6 +35,16 @@ class Venue {
 	static function getMaxCapacity($id) {
 		try {
 			return DB::get('venue', array('idvenue'=>$id, 'capacity'=>null))[0];
+		} catch (PDOException $e) {
+			// display the error message
+			echo $e->getMessage();
+			return array();
+		}
+	}
+
+	function getVenue() {
+		try {
+			return DB::get('venue', array('idvenue'=>$this->idvenue, 'name'=>null, 'capacity'=>null))[0];
 		} catch (PDOException $e) {
 			// display the error message
 			echo $e->getMessage();

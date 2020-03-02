@@ -5,7 +5,6 @@
 
 	include 'templates/nav.php';
 	include 'templates/event_modal.html';
-	include 'utilities.php'; 
 
 	$e = new Event();
 	$events = $e->getAllEvents();
@@ -27,17 +26,7 @@
 <body>
 	<div class="container">
 		<?php 
-		$info = '';
-		if(isset($_GET['error'])) {
-			$info = '<p class="info error">Could not register successfully!</p>';
-		}
-		else if(isset($_GET['success'])) {
-			$info = '<p class="info success"> ';
-			$info .= ($_GET['success'] == 'insert') ? 'Registration' : 'Unregistration'; 
-			$info .= ' was successful!</p>';
-		}
-
-		echo $info;
+		getMessage();
 
 		for ($i = 0; $i < count($events); $i++) { 
 	  		if($i == 0) { ?>
@@ -62,7 +51,7 @@
 						<i class="fas fa-map-marker"></i><?php echo $events[$i]->getVenue()->getName(); ?>
 					</p>
 					<p class="card-text">
-						<i class="fas fa-calendar-alt"></i><?php echo formatDate($events[$i]->getDateStart()) . " - " . formatDate($events[$i]->getDateEnd()); ?>
+						<i class="fas fa-calendar-alt"></i><?php echo formatDateForView($events[$i]->getDateStart()) . " - " . formatDateForView($events[$i]->getDateEnd()); ?>
 					</p>
 				</div>
 

@@ -34,12 +34,9 @@ class Session {
 	}
 
 	function toArray() {
-		$this->startdate = $this->formatDate($this->startdate);
-		$this->enddate = $this->formatDate($this->enddate);
+		$this->startdate = formatDateForView($this->startdate);
+		$this->enddate = formatDateForView($this->enddate);
 		return implode("|", get_object_vars($this));
 	}
 
-	private function formatDate($date) {
-		return date("M j, Y G:i", strtotime($date));
-	}
 }
