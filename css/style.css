@@ -10,6 +10,11 @@
 	text-align: center;
 }
 
+.table-responsive {
+	overflow-x: auto !important;
+	width: 100% !important;
+}
+
 span.navbar-text {
 	margin: 0;
 }
