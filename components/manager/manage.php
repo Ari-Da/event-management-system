@@ -56,7 +56,9 @@
 		  	<thead class="thead-light">
 			    <tr>
 			      <th>
-			      	<button type="button" class="btn btn-warning icon" onclick="loadAttendeeModal(<?=$info->getIdEvent()?>,'event')" data-href="<?=HTTP_URL ?>/templates/view_attendees.php"><i class="fas fa-users fa-lg"></i></button>
+			      	<button type="button" class="btn btn-warning icon" onclick="loadAttendeeModal(<?=$info->getIdEvent()?>,'event')">
+			      		<i class="fas fa-users fa-lg"></i>
+			      	</button>
 			      </th>
 
 			      <th><?=$info->getName() ?></th>
@@ -146,6 +148,7 @@
 	  </div>
 	</div>
 
+	<script src="../../js/animate.js"></script>
 	<script src="../../js/loadAttendeeModal.js"></script>
 
 </body>
