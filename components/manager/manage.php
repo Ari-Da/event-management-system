@@ -4,9 +4,10 @@
 	}
 
 	include 'templates/nav.php';
-	include 'templates/edit_event.html';
-	include 'templates/add_event.html';
+	include 'templates/edit_event.php';
+	include 'templates/add_event.php';
 	include 'templates/add_session.html';
+
 
 	$manager_events = new Manager_event();
 	$manager_events->setManager($_SESSION['user']['id']);
@@ -30,40 +31,56 @@
 	<table class="table">
 	  <thead class="thead-dark">
 	    <tr>
+	      <th scope="col"></th>
 	      <th scope="col">Name</th>
 	      <th scope="col">Start date</th>
 	      <th scope="col">End date</th>
 	      <th scope="col">Number of participants</th>
 	      <th scope="col">Venue</th>
+	      <th scope="col"></th>
 	      <th scope="col" colspan="2"><button type="button" class="btn btn-warning" data-type="event" data-toggle="modal" data-target="#addEvent">Add an Event</button></th>
 	    </tr>
 	  </thead>
 	  <tbody>
 	  	<?php if(count($events) > 0) {
 	  		foreach($events as $event) { 
-	  			$e = new Event();
-	  			$e->setIdEvent($event->getEvent());
-	  			$info = $e->getEvent();
+	  			$info = new Event();
+	  			$info->setIdEvent($event->getEvent());
+	  			$info = $info->getEvent();
 	  			// var_dump($info);
 	  			$venue = new Venue();
 	  			$venue->setIdVenue($info->getVenueId());
 	  			$venueName = $venue->getVenue()->getName();
-	  			$sessions = $e->getSessions();
+	  			$sessions = $info->getSessions();
 	  	?>
 	  	<thead class="thead-light">
 		    <tr>
-		      <th scope="col"><?=$info->getName() ?><button type="button" class="icon" data-toggle="modal" data-target="#addSession" data-event="<?=$info->getIdEvent() ?>" data-max="<?=$info->getNumberallowed() ?>"><i class="far fa-plus-square fa-lg"></i></button></th>
+		      <th scope="col">
+		      	<button type="button" class="btn btn-warning icon" onclick="loadAttendeeModal(<?=$info->getIdEvent()?>,'event')" data-href="<?=HTTP_URL ?>/templates/view_attendees.php"><i class="fas fa-users fa-lg"></i></button>
+		      </th>
+
+		      <th><?=$info->getName() ?></th>
 		      <th scope="col"><?=$info->getDateStart() ?></th>
 		      <th scope="col"><?=$info->getDateEnd() ?></th>
 		      <th scope="col"><?=$info->getNumberallowed() ?></th>
 		      <th scope="col"><?=$venueName ?></th>
-		      <th scope="col"><button type="button" class="btn btn-warning" data-toggle="modal" data-type="event" data-target="#editEvent" data-details="<?=$e->toArray() ?>">Edit</button></th>
+
+     		  <th scope="col">
+		      	<button type="button" class="btn btn-warning icon" data-toggle="modal" data-target="#addSession" data-event="<?=$info->getIdEvent() ?>" data-max="<?=$info->getNumberallowed() ?>" data-name="<?=$info->getName() ?>"><i class="fas fa-plus-square fa-lg"></i></button>
+		      </th>
+
+		      <th scope="col">
+		      	<button type="button" class="btn btn-warning icon" data-toggle="modal" data-type="event" data-target="#editEvent" data-details="<?=$info->toArray() ?>"><i class="fas fa-edit fa-lg"></i></button>
+		      </th>		 
+
 		      <th scope="col">
 		      	<form method="post" action="delete_event.php?type=event">
-		      		<input type="hidden" name="id" value="<?=$e->getIdEvent() ?>" />
-		      		<button type="submit" class="btn btn-warning">Delete</button>
+		      		<input type="hidden" name="id" value="<?=$info->getIdEvent() ?>" />
+		      		<button type="submit" class="btn btn-warning icon"><i class="fas fa-trash-alt fa-lg"></i></button>
 		      	</form>
 		      </th>
+
+		      
 		    </tr>
 		 </thead>
 		<?php 
@@ -71,28 +88,52 @@
 				foreach($sessions as $session) {
 		?>
 	    <tr>
-	      <th scope="col"><?=$session->getName() ?></th>
-	      <th scope="col"><?=$session->getStartdate() ?></th>
-	      <th scope="col"><?=$session->getEnddate() ?></th>
-	      <th scope="col"><?=$session->getNumberallowed() ?></th>
-	      <th scope="col"></th>
-	      <th scope="col"><button type="button" class="btn btn-warning" data-toggle="modal" data-type="session" data-target="#editEvent" data-details="<?=$session->toArray() ?>">Edit</button></th>
-	      <th scope="col">
+	      <td>
+	      	<button type="button" class="btn btn-warning icon" onclick="loadAttendeeModal(<?=$session->getIdSession()?>,'session')" data-href="<?=HTTP_URL ?>/templates/view_attendees.php"><i class="fas fa-users fa-lg"></i></button>
+	      </td>
+
+	      <td><?=$session->getName() ?></td>
+	      <td><?=$session->getStartdate() ?></td>
+	      <td><?=$session->getEnddate() ?></td>
+	      <td><?=$session->getNumberallowed() ?></td>
+	      <td></td>
+	      <td></td>
+
+	      <td><button type="button" class="btn btn-warning icon" data-toggle="modal" data-type="session" data-target="#editEvent" data-details="<?=$session->toArray() ?>"><i class="fas fa-edit fa-lg"></i></button></td>
+	      <td>
 	      	<form method="post" action="delete_event.php?type=session">
 	      		<input type="hidden" name="id" value="<?=$session->getIdSession() ?>" />
-	      		<button type="submit" class="btn btn-warning">Delete</button>
+	      		<button type="submit" class="btn btn-warning icon"><i class="fas fa-trash-alt fa-lg"></i></button>
 	      	</form>
-	      </th>
+	      </td>
+
+	      
 	    </tr>
 		<?php
-					}
-				}
-			} 
-		} 
+					} // foreach session
+				} // if count session
+			}// foreach event 
+		} // if count event
+		 else {
+		 	echo '<tr><td><h3>No events found!</h3></td></tr>';
+		 }
 		?>
 	  </tbody>
 	</table>
 
-	<script src="<?=HTTP_URL ?>js/animate.js"></script>
-	<script src="<?=HTTP_URL ?>js/tableTemplate.js"></script>
+
+	<div class="modal fade" id="attendees" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	    	
+	    </div>
+	  </div>
+	</div>
+
+	<script src="../../js/loadAttendeeModal.js"></script>
+
 </body>
+
+<?php
+include 'templates/footer_manager.html';
+?>

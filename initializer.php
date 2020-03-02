@@ -1,5 +1,15 @@
 <?php
-define("HTTP_URL", "http://$_SERVER[HTTP_HOST]/server-dev/projects/Project 1/event-management-system/");
+$dirname = dirname($_SERVER['SCRIPT_NAME']);
+$parts = explode("/", $dirname);
+$relative_dir_path = "";
+
+for($i = 0; $i <= 4; $i++) {
+	$relative_dir_path .= $parts[$i] . "/";
+}
+
+// var_dump($relative_dir_path);
+
+define("HTTP_URL", "http://$_SERVER[HTTP_HOST]" . $relative_dir_path);
 
 spl_autoload_register(function ($class) {
 	include "classes/$class.class.php";

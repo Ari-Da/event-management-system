@@ -35,6 +35,22 @@ class Attendee_event {
 		return get_object_vars($this);
 	}
 
+	function getAttendeeDetails() {
+		try {
+			return DB::get('attendee', array('idattendee'=>$this->attendee, 'name'=>null, 'role'=>null))[0];
+		} catch (PDOException $e) {
+			return null;
+		}
+	}
+
+	function getAttendeesForEvent() {
+		try {
+			return DB::get('attendee_event', array('event'=>$this->event, 'attendee'=>null, 'paid'=>null));
+		} catch (PDOException $e) {
+			return array();
+		}
+	}
+
 	function insert() {
 		try {
 			$query = "INSERT INTO attendee_event(event, attendee, paid) VALUES(:event, :attendee, :paid)";

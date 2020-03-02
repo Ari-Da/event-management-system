@@ -94,6 +94,10 @@ footer {
 	color: white;
 }
 
+footer > ul > li {
+	margin-left: 40px;
+}
+
 label.input-group-text {
 	width: 100%;
 }
@@ -112,9 +116,7 @@ div.modal div.input-group input, div.modal div.input-group select {
 	border: 1px solid gray;
 }
 
-th > button {
-	width: 72px;
-}
+
 
 th[colspan="2"] > button {
 	width: 85%;
@@ -123,4 +125,12 @@ th[colspan="2"] > button {
 button.icon {
 	background-color: transparent;
 	border: none;
+}
+
+tbody > tr {
+	font-size: 14px;
+}
+
+tbody > tr, thead > tr {
+	text-align: center;
 }

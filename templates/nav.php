@@ -30,7 +30,7 @@ $event_url = "";
 			    </li>
 		      <?php if($_SESSION['user']['role'] == 2) { ?>
 		      	<li class="nav-item <?php if ($FILE_NAME == 'manage.php') { echo 'active'; } ?>">
-			        <a class="nav-link" href="<?=HTTP_URL ?>components/manager/manage.php">Manage</a>
+			        <a class="nav-link" href="<?=HTTP_URL ?>components/manager/manage.php">Manage events/sessions</a>
 			    </li>
 		      <?php } 
 		  		}

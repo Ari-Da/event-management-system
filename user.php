@@ -48,5 +48,5 @@ include 'templates/nav.php';
 </html>
 
 <?php
-include 'templates/footer.html';
+include 'templates/footer_attendee.html';
 ?>

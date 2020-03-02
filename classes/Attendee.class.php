@@ -60,6 +60,10 @@ class Attendee {
 		return hash('sha256', $pass);
 	}
 
+	function toArray() {
+		return implode("|", get_object_vars($this));
+	}
+
 	function getEvents() {
 		try {
 			return DB::get('attendee_event', array('event'=>null, 'attendee'=>$this->idattendee, 'paid'=>null));

@@ -104,6 +104,16 @@ class Event {
 		}
 	}
 
+	function getAttendees() {
+		try {
+			return DB::get('attendee_event', array('event'=>$this->idevent, 'attendee'=>null, 'paid'=>null));
+		} catch (PDOException $e) {
+			// display the error message
+			echo $e->getMessage();
+			return array();
+		}
+	}
+
 	function toArray() {
 		$this->datestart = $this->formatDate($this->datestart);
 		$this->dateend = $this->formatDate($this->dateend);
