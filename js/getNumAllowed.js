@@ -4,20 +4,15 @@ function getNumAllowed(id) {
 	
 	if (venue == 0) {
 		allowed.val("");
-		allowed.prop("max", "1000");
+		allowed.attr("max", "1000");
         return;
     } else {
 		$.get({
-			url: getUrl() + "/api/getNumAllowed.php?id=" + venue,
+			url: getPath() + "api/getNumAllowed.php?id=" + venue,
 			success: function(response) {
 				allowed.val(response);
 				allowed.attr("max", parseInt(response));
 			}
 		})
     }
-}
-
-
-function getUrl() {
-	return window.location.protocol + "//" + window.location.host + "/server-dev/projects/Project\ 1/event-management-system";
 }

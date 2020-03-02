@@ -74,5 +74,6 @@ $venues = Venue::getAllVenues();
 
   </body>
 
+   <script src="<?=HTTP_URL ?>js/relativePath.js"></script>
    <script src="<?=HTTP_URL ?>js/getNumAllowed.js"></script>
 </html>

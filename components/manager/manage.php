@@ -149,6 +149,7 @@
 	</div>
 
 	<script src="../../js/animate.js"></script>
+	<script src="../../js/relativePath.js"></script>
 	<script src="../../js/loadAttendeeModal.js"></script>
 
 </body>
