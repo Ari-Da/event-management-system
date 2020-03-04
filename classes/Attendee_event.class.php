@@ -32,7 +32,7 @@ class Attendee_event {
 	}
 
 	function toArray() {
-		return get_object_vars($this);
+		return implode("|", get_object_vars($this));
 	}
 
 	function getAttendeeDetails() {
@@ -70,6 +70,18 @@ class Attendee_event {
 			$deleted = DB::set($query, $params, true);
 
 			return $deleted > 0;
+		} catch (PDOException $e) {
+			return false;
+		}
+	}
+
+	function update() {
+		try {
+			$query = 'UPDATE attendee_event SET paid = :paid WHERE event = :event AND attendee = :attendee';
+			$params = array('paid' => $this->paid, 'event' => $this->event, 'attendee' => $this->attendee);
+			$updated = DB::set($query, $params, true);
+
+			return $updated > 0;
 		} catch (PDOException $e) {
 			return false;
 		}

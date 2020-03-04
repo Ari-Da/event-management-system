@@ -80,7 +80,7 @@ class DB {
 			if(!$stmt->execute()) {
 				return 0;
 			}
-			$stmt->debugDumpParams();
+			// $stmt->debugDumpParams();
 
 			if($count) {
 				return $stmt->rowCount();

@@ -1,5 +1,7 @@
 <?php
 
+include 'templates/edit_attendee.html';
+
 $id = $_GET['id'];
 $type = $_GET['type'];
 $attendees = array();
@@ -34,17 +36,16 @@ $attendees = $obj->getAttendees();
 	  		if(count($attendees) > 0) {
 		  		foreach ($attendees as $attendee) {
 		 		 	echo '<tr>';
-		 		 	$details = new Attendee_event();
-		 		 	$details->setAttendee($attendee->getAttendee());
-		 		 	$details = $details->getAttendeeDetails();
+		 		 	$details = $attendee->getAttendeeDetails();
 	  	?>
 
 	  				<td scope='row'><?=$details->getIdAttendee() ?></td>
 	  				<td scope='col'><?=$details->getName() ?></td>
-
+	  				
 	  				<?php if($type == 'event') { ?>
+	  				<td scope='col'><?=$attendee->getPaid() ?>$</td>
 	  				<td scope='col'>
-	  					<button type="button" class="btn btn-warning icon" data-toggle="modal" data-type="event" data-target="#editAttendee" data-details="<?=$details->toArray() ?>">
+	  					<button type="button" class="btn btn-warning icon" data-toggle="modal" data-target="#editAttendee" data-details="<?=$attendee->toArray() ?>">
 	  						<i class="fas fa-edit fa-lg"></i>
 	  					</button>
 	  				</td>
