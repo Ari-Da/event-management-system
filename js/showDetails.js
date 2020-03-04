@@ -32,6 +32,9 @@ $(function() {
 		if(registered == 0 && type == 'event') {
 			modal.find('#paid_amount').show();
 		}
+		else {
+			modal.find('#paid_amount').hide();
+		}
 	});	
 
 	$('#eventModal').on('hidden.bs.modal', function (e) {

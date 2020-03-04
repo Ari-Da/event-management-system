@@ -94,7 +94,7 @@ class Event {
 		}
 	}
 
-	function getAllEvents() {
+	static function getAllEvents() {
 		try {
 			return DB::get('event', array('idevent'=>null, 'name'=>null, 'datestart'=>null, 'dateend'=>null,'numberallowed'=>null, 'venue'=>null));
 		} catch (PDOException $e) {

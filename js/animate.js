@@ -7,7 +7,7 @@ $(function() {
 	  }
 	);
 
-	$("p.info").fadeTo(2000, 500).slideUp(500, function(){
-	    $("p.info").slideUp(500);
+	$("div.info").fadeTo(1500, 500).slideUp(200, function(){
+	    $("div.info").slideUp(500);
 	});
 });

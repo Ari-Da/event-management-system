@@ -43,7 +43,7 @@ class Attendee_event {
 		}
 	}
 
-	function getAttendeesForEvent() {
+	function getAttendees() {
 		try {
 			return DB::get('attendee_event', array('event'=>$this->event, 'attendee'=>null, 'paid'=>null));
 		} catch (PDOException $e) {

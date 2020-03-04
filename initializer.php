@@ -33,7 +33,12 @@ function startAttendeeSession($a) {
 function getMessage() {
 	$info = '';
 	if(isset($_GET['error'])) {
-		$info = '<p class="info error">Could not ';
+		$info = '<div class="modal info error" tabindex="-1" role="dialog">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				    	<div class="modal-body">
+				    		Could not ';
+		// $info = '<p class="info error">Could not ';
 
 		switch($_GET['error']) {
 			case 'update': $info .= 'edit'; break;
@@ -41,10 +46,15 @@ function getMessage() {
 			case 'insert': $info .= 'insert'; break;
 		}
 
-		$info .= ' successfully!</p>';
+		// $info .= ' successfully!</p>';
+		$info .= ' successfully</div></div></div></div>';
 	}
 	else if(isset($_GET['success'])) {
-		$info = '<p class="info success"> ';
+		$info = '<div class="modal info success" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		    	<div class="modal-body">';
+		// $info = '<p class="info success"> ';
 
 		switch($_GET['success']) {
 			case 'update': $info .= 'Editting'; break;
@@ -52,7 +62,8 @@ function getMessage() {
 			case 'insert': $info .= 'Insertion'; break;
 		}
 
-		$info .= ' was successful!</p>';
+		// $info .= ' was successful!</p>';
+		$info .= ' was successful</div></div></div></div>';
 	}
 
 	echo $info;

@@ -82,15 +82,29 @@ class Attendee {
 		}
 	}
 
-	function insert() {
+	static function getAllAttendees() {
+		try {
+			return DB::get('attendee', array('idattendee'=>null, 'name'=>null, 'role'=>3));
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+			return array();
+		}
+	}
+
+	function insert($attendee=true) {
+		if($attendee) {
+			$this->role = 3;
+		}
+
 		try {
 			$query = "INSERT INTO attendee(name, password, role) VALUES(:name, :pass, :role)";
 			$params = array("name"=>$this->name, "pass"=>$this->password, "role"=>$this->role);
-			$inserted = DB::set($query, $params);
+			$newId = DB::set($query, $params);
+			$this->idattendee = $newId;
 
-			return $inserted > 0;
+			return $newId;
 		} catch (PDOException $e) {
-			return false;
+			return 0;
 		}
 	}
 }

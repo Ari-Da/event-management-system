@@ -1,5 +1,7 @@
 <?php
+
 include 'templates/nav.php';
+
 ?>
 
 <!DOCTYPE html>

@@ -8,7 +8,6 @@
 	include 'templates/add_event.php';
 	include 'templates/add_session.html';
 
-
 	$manager_events = new Manager_event();
 	$manager_events->setManager($_SESSION['user']['id']);
 	$events = $manager_events->getEvents();
@@ -97,7 +96,7 @@
 			?>
 		    <tr>
 		      <td>
-		      	<button type="button" class="btn btn-warning icon" onclick="loadAttendeeModal(<?=$session->getIdSession()?>,'session')" data-href="<?=HTTP_URL ?>/templates/view_attendees.php">
+		      	<button type="button" class="btn btn-warning icon" onclick="loadAttendeeModal(<?=$session->getIdSession()?>,'session')">
 		      		<i class="fas fa-users fa-lg"></i>
 		      	</button>
 		      </td>

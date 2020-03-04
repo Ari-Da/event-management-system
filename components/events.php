@@ -6,8 +6,7 @@
 	include 'templates/nav.php';
 	include 'templates/event_modal.html';
 
-	$e = new Event();
-	$events = $e->getAllEvents();
+	$events = Event::getAllEvents();
 
 	$attendee = new Attendee();
 	$attendee->setIdAttendee($_SESSION['user']['id']);
