@@ -3,10 +3,13 @@ $FILE_NAME = basename($_SERVER['PHP_SELF']);
 
 $event_url = "";
 
-// if(isset($_SESSION['user'])) {
-// 	$role = intval($_SESSION['user']['role']);
-// 	$event_url = getEventComponent($role);
-// }
+if(isset($_SESSION['user'])) {
+	$role = intval($_SESSION['user']['role']);
+}
+else {
+	$role = 0;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -27,14 +30,19 @@ $event_url = "";
 		      </li>
 		      <?php if(isset($_SESSION['user'])) { ?>
 		      	<li class="nav-item <?php if ($FILE_NAME == 'events.php') { echo 'active'; } ?>">
-			        <a class="nav-link" href="<?=HTTP_URL ?>components/events.php">Events</a>
+			        <a class="nav-link" href="<?=HTTP_URL ?>components/attendee/events.php">Events</a>
 			    </li>
-		      <?php if($_SESSION['user']['role'] == 2) { ?>
+		      <?php if($role == 2 || $role == 1 || $role == 4) { ?>
 		      	<li class="nav-item <?php if ($FILE_NAME == 'manage.php') { echo 'active'; } ?>">
 			        <a class="nav-link" href="<?=HTTP_URL ?>components/manager/manage.php">Manage events/sessions</a>
 			    </li>
-		      <?php } 
-		  		}
+			  <?php if($role == 1 || $role == 4) { ?>
+			  	<li class="nav-item <?php if ($FILE_NAME == 'venues.php') { echo 'active'; } ?>">
+			        <a class="nav-link" href="<?=HTTP_URL ?>components/admin/venues.php">Manage venues</a>
+			    </li>
+		      <?php 	} // if role is 1 or 4 
+		  			} // if role is 1 or 1 or 4
+		  		} // is session is active
 		  	  ?>
 		    </ul>
 

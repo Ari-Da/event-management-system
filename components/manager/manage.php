@@ -8,9 +8,17 @@
 	include 'templates/add_event.php';
 	include 'templates/add_session.html';
 
-	$manager_events = new Manager_event();
-	$manager_events->setManager($_SESSION['user']['id']);
-	$events = $manager_events->getEvents();
+	switch($role) {
+		case 1: //Admin
+		case 4: $events = Event::getAllEvents(); // Super admin
+				break;
+		case 2: $manager_events = new Manager_event(); // Manager
+				$manager_events->setManager($_SESSION['user']['id']);
+				$events = $manager_events->getEvents();
+				break;
+
+		default: $events = array();
+	}
 
 ?>
 
@@ -43,10 +51,15 @@
 		  <tbody>
 		  	<?php if(count($events) > 0) {
 		  		foreach($events as $event) { 
-		  			$info = new Event();
-		  			$info->setIdEvent($event->getEvent());
-		  			$info = $info->getEvent();
-		  			// var_dump($info);
+		  			if($role == 2) {
+			  			$info = new Event();
+			  			$info->setIdEvent($event->getEvent());
+			  			$info = $info->getEvent();
+			  		}
+			  		else {
+			  			$info = $event;
+			  		}
+		  			
 		  			$venue = new Venue();
 		  			$venue->setIdVenue($info->getVenueId());
 		  			$venueName = $venue->getVenue()->getName();
@@ -131,7 +144,7 @@
 				}// foreach event 
 			} // if count event
 			 else {
-			 	echo '<tr><td><h3>No events found!</h3></td></tr>';
+			 	echo '<tr><td colspan="6"><h3>No events found!</h3></td></tr>';
 			 }
 			?>
 		  </tbody>

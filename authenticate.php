@@ -19,7 +19,7 @@ else if($type == 1) {
 
 if($success) {
 	startAttendeeSession($attendee);
-	header('Location: ' . HTTP_URL . 'components/events.php');
+	header('Location: ' . HTTP_URL . 'components/attendee/events.php');
 }
 else {
 	header('Location: user.php?' . ($type == 0 ? 'error' : 'duplicate'));
