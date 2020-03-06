@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+	<div class="modal fade" id="editVenue" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Edit venue</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form method="post" action="edit_venue.php">
+		      <div class="modal-body">
+		      	<div class="input-group flex-nowrap">
+				  <div class="input-group-prepend">
+				  	<label for="name" class="input-group-text">Name:</label>
+				  </div>
+				  <input type="text" id="name" name="name" required></input>
+				</div>
+
+		      	<div class="input-group flex-nowrap">
+				  <div class="input-group-prepend">
+				  	<label for="capacity" class="input-group-text">Capacity:</label>
+				  </div>
+				  <input type="number" id="capacity" name="capacity" min="1" required></input>
+				</div>
+
+		      <div class="modal-footer">
+		        <button type="submit" class="btn btn-warning" name="submitBtn" value="">Edit</button>
+		      </div>
+		      <input type="hidden" id="id" name="id" value=""/>
+		  	</div>
+	  	  </form>
+	    </div>
+	  </div>
+	</div>
+
+    <script src="../../js/venueEdit.js"></script>
+  </body>
+</html>

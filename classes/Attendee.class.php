@@ -91,6 +91,33 @@ class Attendee {
 		}
 	}
 
+	static function getAllUsers() {
+		try {
+			$attendees = DB::get('attendee', array('idattendee'=>null, 'name'=>null, 'role'=>3));
+			$managers = DB::get('attendee', array('idattendee'=>null, 'name'=>null, 'role'=>2));
+			$admins = DB::get('attendee', array('idattendee'=>null, 'name'=>null, 'role'=>1));
+			$users = array_merge($attendees, $managers, $admins);
+
+			return $users;
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+			return array();
+		}
+	}
+
+	function get() {
+		try {
+			$attendee = DB::get('attendee', array('idattendee'=>$this->idattendee, 'name'=>null, 'role'=>null))[0];
+			$this->name = $attendee->getName();
+			$this->role = $attendee->getRole();
+
+			return true;
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+			return false;
+		}
+	}
+
 	function insert($attendee=true) {
 		if($attendee) {
 			$this->role = 3;
@@ -105,6 +132,78 @@ class Attendee {
 			return $newId;
 		} catch (PDOException $e) {
 			return 0;
+		}
+	}
+
+	function delete() {
+		$success = false;
+		
+		try {
+			if(DB::startTransaction()) {
+				$query = 'DELETE FROM attendee WHERE idattendee = :id';
+				$params = array('id'=>$this->idattendee);
+				$deleted = DB::set($query, $params, true);
+
+				if($deleted > 0) {
+					$ae = new Attendee_event();
+					$ae->setAttendee($this->idattendee);
+
+					if($ae->deleteAttendee()) {
+						$as = new Attendee_session();
+						$as->setAttendee($this->idattendee);
+								
+						if($as->deleteAttendee()) {
+							if(intval($this->role) == 2) {
+								if(Manager_event::deleteAttendee($this->idattendee)) {
+									$success = true;
+									DB::commitTransaction();
+								}
+								else {
+									$success = false;
+									DB::rollTransaction();
+								}
+							}
+							else {
+								$success = true;
+								DB::commitTransaction();
+							}
+						}
+					}
+					else {
+						$success = false;
+						DB::rollTransaction();
+					}
+				}
+				else {
+					$success = false;
+					DB::rollTransaction();
+				}
+			}
+
+			return $success;
+		} catch (PDOException $e) {
+			DB::rollTransaction();
+			return false;
+		}
+	}
+
+	function update() {
+		try {
+			$query = 'UPDATE attendee SET name = :name, role = :role';
+			$params = array('name' => $this->name, 'role' => $this->role, 'id' => $this->idattendee);
+
+			if($this->password != null) {
+				$query .= ', password = :pass';
+				$params['pass'] = $this->password;
+			}
+
+			$query .= ' WHERE idattendee = :id';
+
+			$updated = DB::set($query, $params, true);
+
+			return $updated > 0;
+		} catch (PDOException $e) {
+			return false;
 		}
 	}
 }

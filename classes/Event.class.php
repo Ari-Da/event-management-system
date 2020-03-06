@@ -147,7 +147,7 @@ class Event {
 
 				if($deleted > 0) {
 					// throw new PDOException();
-					if(Manager_event::delete($this->idevent)) {
+					if(Manager_event::deleteEvent($this->idevent)) {
 						$success = true;
 						DB::commitTransaction();
 					}
@@ -174,6 +174,7 @@ class Event {
 			$query = 'INSERT INTO event(name, datestart, dateend, numberallowed, venue) VALUES(:name, :datestart, :dateend, :numberallowed, :venue)';
 			$params = array('name'=>$this->name, 'datestart'=>$this->datestart, 'dateend'=>$this->dateend, 'numberallowed'=>$this->numberallowed, 'venue'=>$this->venue);
 			$inserted = DB::set($query, $params);
+			$this->idevent = $inserted;
 			
 			return $inserted;
 		} catch (PDOException $e) {

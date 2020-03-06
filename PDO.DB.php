@@ -78,7 +78,7 @@ class DB {
 			}
 
 			if(!$stmt->execute()) {
-				return 0;
+				return -1;
 			}
 			// $stmt->debugDumpParams();
 
@@ -92,7 +92,7 @@ class DB {
 		} catch (PDOException $e) {
 			// display the error message
 			echo $e->getMessage();
-			return 0;
+			return -1;
 		}
 	}
 

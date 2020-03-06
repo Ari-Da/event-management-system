@@ -15,6 +15,10 @@
 	width: 100% !important;
 }
 
+th.has-button {
+	width: 10%;
+}
+
 span.navbar-text {
 	margin: 0;
 }
@@ -32,6 +36,14 @@ span.required {
 .fas {
 	color: gold;
 	margin: 0 7px;
+}
+
+tr.table-warning button .fas {
+	color: black;
+}
+
+tr.table-warning th:first-child {
+	width: 20px;
 }
 
 .container {
@@ -82,6 +94,8 @@ h5.card-title, a.no_underline {
 .info {
 	margin: 30px auto;
 	text-align: center;
+	font-size: 17px;
+	font-weight: bold;
 	height: 400px;
 }
 
@@ -133,7 +147,7 @@ button.icon {
 	border: none;
 }
 
-tbody > tr {
+tbody > tr.sub {
 	font-size: 14px;
 }
 

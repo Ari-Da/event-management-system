@@ -30,7 +30,7 @@ else {
 		      </li>
 		      <?php if(isset($_SESSION['user'])) { ?>
 		      	<li class="nav-item <?php if ($FILE_NAME == 'events.php') { echo 'active'; } ?>">
-			        <a class="nav-link" href="<?=HTTP_URL ?>components/attendee/events.php">Events</a>
+			        <a class="nav-link" href="<?=HTTP_URL ?>components/attendee/events.php">My events</a>
 			    </li>
 		      <?php if($role == 2 || $role == 1 || $role == 4) { ?>
 		      	<li class="nav-item <?php if ($FILE_NAME == 'manage.php') { echo 'active'; } ?>">
@@ -38,7 +38,10 @@ else {
 			    </li>
 			  <?php if($role == 1 || $role == 4) { ?>
 			  	<li class="nav-item <?php if ($FILE_NAME == 'venues.php') { echo 'active'; } ?>">
-			        <a class="nav-link" href="<?=HTTP_URL ?>components/admin/venues.php">Manage venues</a>
+			        <a class="nav-link" href="<?=HTTP_URL ?>components/admin/venues.php">Venues</a>
+			    </li>
+			    <li class="nav-item <?php if ($FILE_NAME == 'users.php') { echo 'active'; } ?>">
+			        <a class="nav-link" href="<?=HTTP_URL ?>components/admin/users.php">Users</a>
 			    </li>
 		      <?php 	} // if role is 1 or 4 
 		  			} // if role is 1 or 1 or 4

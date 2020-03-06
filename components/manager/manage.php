@@ -27,7 +27,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Manage</title>
+	<title>Manage events/sessions/attendees</title>
 </head>
 
 <body>
@@ -65,11 +65,11 @@
 		  			$venueName = $venue->getVenue()->getName();
 		  			$sessions = $info->getSessions();
 		  	?>
-		  	<thead class="thead-light">
-			    <tr>
+		  	<thead>
+			    <tr class="table-warning">
 			      <th>
-			      	<button type="button" class="btn btn-warning icon" onclick="loadAttendeeModal(<?=$info->getIdEvent()?>,'event')">
-			      		<i class="fas fa-users fa-lg"></i>
+			      	<button type="button" class="btn btn-warning icon" data-toggle="modal" data-target="#addSession" data-event="<?=$info->getIdEvent() ?>" data-max="<?=$info->getNumberallowed() ?>" data-name="<?=$info->getName() ?>">
+			      		<i class="fas fa-plus-square fa-lg"></i>
 			      	</button>
 			      </th>
 
@@ -79,9 +79,9 @@
 			      <th><?=$info->getNumberallowed() ?></th>
 			      <th><?=$venueName ?></th>
 
-	     		  <th>
-			      	<button type="button" class="btn btn-warning icon" data-toggle="modal" data-target="#addSession" data-event="<?=$info->getIdEvent() ?>" data-max="<?=$info->getNumberallowed() ?>" data-name="<?=$info->getName() ?>">
-			      		<i class="fas fa-plus-square fa-lg"></i>
+			      <th>
+			      	<button type="button" class="btn btn-warning icon" onclick="loadAttendeeModal(<?=$info->getIdEvent()?>,'event')">
+			      		<i class="fas fa-users fa-lg"></i>
 			      	</button>
 			      </th>
 
@@ -107,19 +107,19 @@
 				if(count($sessions) > 0) {
 					foreach($sessions as $session) {
 			?>
-		    <tr>
-		      <td>
-		      	<button type="button" class="btn btn-warning icon" onclick="loadAttendeeModal(<?=$session->getIdSession()?>,'session')">
-		      		<i class="fas fa-users fa-lg"></i>
-		      	</button>
-		      </td>
-
+		    <tr class="sub">
+		      <td></td>
 		      <td><?=$session->getName() ?></td>
 		      <td><?=$session->getStartdate() ?></td>
 		      <td><?=$session->getEnddate() ?></td>
 		      <td><?=$session->getNumberallowed() ?></td>
 		      <td></td>
-		      <td></td>
+
+		       <td>
+		      	<button type="button" class="btn btn-warning icon" onclick="loadAttendeeModal(<?=$session->getIdSession()?>,'session')">
+		      		<i class="fas fa-users fa-lg"></i>
+		      	</button>
+		      </td>
 
 		      <td>
 		      	<button type="button" class="btn btn-warning icon" data-toggle="modal" data-type="session" data-target="#editEvent" data-details="<?=$session->toArray() ?>">
@@ -135,8 +135,6 @@
 		      		</button>
 		      	</form>
 		      </td>
-
-		      
 		    </tr>
 			<?php
 						} // foreach session

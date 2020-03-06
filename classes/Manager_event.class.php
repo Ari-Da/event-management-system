@@ -36,13 +36,26 @@ class Manager_event {
 		}
 	}
 
-	static function delete($id) {
+	static function deleteEvent($id) {
 		try {
 			$query = 'DELETE FROM manager_event WHERE event = :id';
 			$params = array('id' => $id);
 			$deleted = DB::set($query, $params, true);
 
-			return $deleted > 0;
+			return $deleted > -1;
+		} catch (PDOException $e) {
+			return false;
+		}
+	}
+
+
+	static function deleteAttendee($id) {
+		try {
+			$query = "DELETE FROM manager_event WHERE manager = :id";
+			$params = array("id" => $id);
+			$deleted = DB::set($query, $params, true);
+
+			return $deleted > -1;
 		} catch (PDOException $e) {
 			return false;
 		}

@@ -75,6 +75,18 @@ class Attendee_event {
 		}
 	}
 
+	function deleteAttendee() {
+		try {
+			$query = "DELETE FROM attendee_event WHERE attendee = :attendee";
+			$params = array("attendee"=>$this->attendee);
+			$deleted = DB::set($query, $params, true);
+
+			return $deleted > -1;
+		} catch (PDOException $e) {
+			return false;
+		}
+	}
+
 	function update() {
 		try {
 			$query = 'UPDATE attendee_event SET paid = :paid WHERE event = :event AND attendee = :attendee';

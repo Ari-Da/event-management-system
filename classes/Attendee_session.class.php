@@ -65,4 +65,17 @@ class Attendee_session {
 			return false;
 		}
 	}
+
+
+	function deleteAttendee() {
+		try {
+			$query = "DELETE FROM attendee_session WHERE attendee = :attendee";
+			$params = array("attendee"=>$this->attendee);
+			$deleted = DB::set($query, $params, true);
+
+			return $deleted > -1;
+		} catch (PDOException $e) {
+			return false;
+		}
+	}
 }

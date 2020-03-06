@@ -92,6 +92,7 @@ class Session {
 			$query = 'INSERT INTO session(name, numberallowed, event, startdate, enddate) VALUES(:name, :numberallowed, :event, :startdate, :enddate)';
 			$params = array('name'=>$this->name, 'startdate'=>$this->startdate, 'enddate'=>$this->enddate, 'numberallowed'=>$this->numberallowed, 'event'=>$this->event);
 			$inserted = DB::set($query, $params);
+			$this->idsession = $inserted;
 			
 			return $inserted;
 		} catch (PDOException $e) {

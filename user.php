@@ -27,7 +27,7 @@ include 'templates/nav.php';
 		  </div>
 		  <div class="form-group">
 		    <label for="pass">Password</label><span class="required">*</span>
-		    <input type="password" class="form-control" id="pass" name="pass" required>
+		    <input type="password" class="form-control" id="pass" name="pass" pattern=".{4,}" title="4 characters minimum" required>
 		  </div>
 		  <button type="submit" class="btn btn-warning w-100">
 		  	<?php if(isset($_POST['login']) || isset($_GET['error'])) { ?>
