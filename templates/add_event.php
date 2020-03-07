@@ -46,7 +46,7 @@ $venues = Venue::getAllVenues();
 				  <div class="input-group-prepend">
 				  	<label for="allowed" class="input-group-text">No. of participants:</label>
 				  </div>
-				  <input type="number" id="allowed" name="allowed" min="5" required></input>
+				  <input type="number" id="allowed" name="allowed" min="1" required></input>
 				</div>
 
 				<div class="input-group flex-nowrap">

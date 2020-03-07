@@ -14,7 +14,7 @@ else if($type == 'session') {
 
 $obj_attendees = $obj->getAttendees();
 
-$attendees = array(); // holds all the registered attendess for the event
+$attendees = array(); // holds all the registered attendees for the event
 
 foreach ($obj_attendees as $attendee) {
 	$attendees[] = $attendee->getAttendeeDetails()->getIdAttendee();
@@ -26,7 +26,6 @@ $not_registered = array_filter($all_attendees, function($attendee) use($attendee
 	return !(in_array($attendee->getIdAttendee(), $attendees));
 });
 
-// var_dump($not_registered);
 ?>
 
 <div class="modal-header">

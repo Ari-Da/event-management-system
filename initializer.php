@@ -10,8 +10,6 @@ for($i = 0; $i < count($parts); $i++) {
 		break;
 }
 
-// var_dump($relative_dir_path);
-
 define("HTTP_URL", "http://$_SERVER[HTTP_HOST]" . $relative_dir_path);
 
 spl_autoload_register(function ($class) {
@@ -44,8 +42,10 @@ function getMessage() {
 			case 'update': $info .= 'edit'; break;
 			case 'delete': $info .= 'delete'; break;
 			case 'insert': $info .= 'insert'; break;
-			case 'sanitize': $info .= ' pass ' . ($_GET['variable'] ?? 'some') . ' sanitization'; break;
-			case 'invalid': $info .= ' pass ' . ($_GET['variable'] ?? 'some') . ' validation'; break;
+			case 'sanitize': $info .= 'pass ' . ($_GET['variable'] ?? 'some') . ' sanitization'; break;
+			case 'invalid': $info .= 'pass ' . ($_GET['variable'] ?? 'some') . ' validation'; break;
+			case 'register': $info .= 'register'; break;
+			case 'unregister': $info .= 'unregister'; break;
 		}
 
 		// $info .= ' successfully!</p>';
@@ -62,6 +62,8 @@ function getMessage() {
 			case 'update': $info .= 'Editting'; break;
 			case 'delete': $info .= 'Deletion'; break;
 			case 'insert': $info .= 'Insertion'; break;
+			case 'register': $info .= 'Registering'; break;
+			case 'unregister': $info .= 'Unregistering'; break;
 		}
 
 		// $info .= ' was successful!</p>';
@@ -126,3 +128,5 @@ function validate($params, $path, $is_get = false) {
 		}
 	}
 }
+
+require 'templates/nav.php';

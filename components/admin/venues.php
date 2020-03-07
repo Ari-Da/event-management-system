@@ -3,7 +3,7 @@
 		header("Location: " . HTTP_URL . "index.php");
 	}
 
-	include 'templates/nav.php';
+	loadNavBar();
 	include 'templates/add_venue.html';
 	include 'templates/edit_venue.html';
 
@@ -62,7 +62,7 @@
 					}// foreach venue 
 				} // if count venue
 				 else {
-				 	echo '<tr><td colspan="3"><h3>No venues found!</h3></td></tr>';
+				 	echo '<tr><td colspan="5"><h3>No venues found!</h3></td></tr>';
 				 }
 			?>
 		  </tbody>

@@ -84,7 +84,7 @@ class Attendee {
 
 	static function getAllAttendees() {
 		try {
-			return DB::get('attendee', array('idattendee'=>null, 'name'=>null, 'role'=>3));
+			return DB::get('attendee', array('idattendee'=>null, 'name'=>null, 'role'=>null));
 		} catch (PDOException $e) {
 			echo $e->getMessage();
 			return array();

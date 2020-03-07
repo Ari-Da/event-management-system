@@ -3,10 +3,14 @@
 		header("Location: " . HTTP_URL . "index.php");
 	}
 
-	include 'templates/nav.php';
+	loadNavBar();
+
+	// include modals
 	include 'templates/edit_event.php';
 	include 'templates/add_event.php';
 	include 'templates/add_session.html';
+
+	$role = intval($_SESSION['user']['role']);
 
 	switch($role) {
 		case 1: //Admin
@@ -92,7 +96,7 @@
 			      </th>		 
 
 			      <th>
-			      	<form method="post" action="delete_event.php?id=<?=$info->getIdEvent() ?>&type=event">
+			      	<form method="post" action="delete_event.php?id=<?=$info->getIdEvent()?>&type=event">
 			      		<input type="hidden" name="id" value="<?=$info->getIdEvent() ?>" />
 			      		<button type="submit" class="btn btn-warning icon">
 			      			<i class="fas fa-trash-alt fa-lg"></i>
@@ -128,8 +132,7 @@
 		      </td>
 
 		      <td>
-		      	<form method="post" action="delete_event.php?type=session">
-		      		<input type="hidden" name="id" value="<?=$session->getIdSession() ?>" />
+		      	<form method="post" action="delete_event.php?id=<?=$session->getIdSession()?>&type=session">
 		      		<button type="submit" class="btn btn-warning icon">
 		      			<i class="fas fa-trash-alt fa-lg"></i>
 		      		</button>
@@ -142,7 +145,7 @@
 				}// foreach event 
 			} // if count event
 			 else {
-			 	echo '<tr><td colspan="6"><h3>No events found!</h3></td></tr>';
+			 	echo '<tr><td colspan="9"><h3>No events found!</h3></td></tr>';
 			 }
 			?>
 		  </tbody>

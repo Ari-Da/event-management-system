@@ -22,12 +22,19 @@ else if($type == 'session') {
 	$obj->setAttendee($_SESSION['user']['id']);
 }
 
-if($registered == 1 && $obj->insert()) {
-	header('Location: events.php?success=insert');
+$url_params = '';
+
+if($obj->insert()) {
+	switch($registered) {
+		case 1: $url_params = '?error=register';
+		case 0: $url_params = '?success=register';
+	}
 }
-else if($registered == 0 && $obj->delete()) {
-	header('Location: ' . $path . '?success=delete');
+else if($obj->delete()) {
+	switch($registered) {
+		case 1: $url_params = '?error=unregister';
+		case 0: $url_params = '?success=unregister';
+	}
 }
-else {
-	header('Location: ' . $path . '?error');
-}
+
+header('Location: ' . $path . $url_params);

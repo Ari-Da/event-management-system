@@ -3,7 +3,7 @@
 		header("Location: " . HTTP_URL . "index.php");
 	}
 
-	include 'templates/nav.php';
+	loadNavBar();
 	include 'templates/edit_user.php';
 	include 'templates/add_user.php';
 

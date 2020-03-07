@@ -1,5 +1,5 @@
 <?php
-$params = array('id'=>'int', 'type'=>'str', 'attendee'=>'int', 'paid'=>'int');
+$params = array('id'=>'int', 'type'=>'str', 'attendee'=>'int');
 $path = 'manage.php';
 
 sanitize($params, $path);
