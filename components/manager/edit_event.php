@@ -1,11 +1,15 @@
 <?php 
+$params = array('id'=>'int', 'allowed'=>'int', 'type'=>'str', 'name'=>'str', 'start'=>'date', 'end'=>'date', 'venue'=>'int');
+$path = 'manage.php';
 
-$type = '';
+sanitize($params, $path);
+validate($params, $path);
+
+// Sanitization and validation complete
+
+$type = $_POST['type'];
 $obj = null;
 
-if(isset($_GET['type']))
-	$type = $_GET['type'];
-var_dump($_POST);
 if($type == 'event') {
 	$obj = new Event();
 	$obj->setIdEvent(intval($_POST['id']));
@@ -25,9 +29,9 @@ if($obj !=null) {
 	$obj->setAllowed($_POST['allowed']);
 
 	if($obj->update()) {
-		header('Location: manage.php?success=update');
+		header('Location: ' . $path . '?success=update');
 	}
 	else {
-		header('Location: manage.php?error=update');
+		header('Location: ' . $path . '?error=update');
 	}
 }

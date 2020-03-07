@@ -1,4 +1,11 @@
 <?php
+$params = array('name'=>'str', 'password'=>null, 'role'=>'int');
+$path = 'users.php';
+
+sanitize($params, $path);
+validate($params, $path);
+
+// Sanitization and validation complete
 
 $user = new Attendee();
 $user->setName($_POST['name']);
@@ -8,8 +15,8 @@ $user->setRole($_POST['role']);
 $newId = $user->insert(false);
 
 if($newId > 0) {
-	header('Location: users.php?success=insert');
+	header('Location: ' . $path . '?success=insert');
 }
 else {
-	header('Location: users.php?error=insert');
+	header('Location: ' . $path . '?error=insert');
 }

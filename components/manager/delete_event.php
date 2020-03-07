@@ -1,6 +1,13 @@
 <?php 
+$params = array('id'=>'int', 'type'=>'str');
+$path = 'manage.php';
 
-$id = intval($_POST['id']);
+sanitize($params, $path, true);
+validate($params, $path, true);
+
+// Sanitization and validation complete
+
+$id = intval($_GET['id']);
 
 $type = '';
 if(isset($_GET['type']))
@@ -16,8 +23,8 @@ else if($type == 'session') {
 }
 
 if($obj != null && $obj->delete()) {
-	header('Location: manage.php?success=delete');
+	header('Location: ' . $path . '?success=delete');
 }
 else {
-	header('Location: manage.php?error=delete');
+	header('Location: ' . $path . '?error=delete');
 }

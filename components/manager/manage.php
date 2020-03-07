@@ -92,7 +92,7 @@
 			      </th>		 
 
 			      <th>
-			      	<form method="post" action="delete_event.php?type=event">
+			      	<form method="post" action="delete_event.php?id=<?=$info->getIdEvent() ?>&type=event">
 			      		<input type="hidden" name="id" value="<?=$info->getIdEvent() ?>" />
 			      		<button type="submit" class="btn btn-warning icon">
 			      			<i class="fas fa-trash-alt fa-lg"></i>

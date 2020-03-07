@@ -1,4 +1,11 @@
 <?php
+$params = array('event'=>'int', 'attendee'=>'int', 'paid'=>'int');
+$path = 'manage.php';
+
+sanitize($params, $path);
+validate($params, $path);
+
+// Sanitization and validation complete
 
 $event = $_POST['event'];
 $attendee = $_POST['attendee'];
@@ -10,8 +17,8 @@ $attendee_event->setAttendee($attendee);
 $attendee_event->setPaid($paid);
 
 if($attendee_event->update()) {
-	header('Location: manage.php?success=update');
+	header('Location: ' . $path . '?success=update');
 }
 else {
-	header('Location: manage.php?error=update');
+	header('Location: ' . $path . '?error=update');
 }

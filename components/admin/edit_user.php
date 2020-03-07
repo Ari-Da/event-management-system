@@ -1,4 +1,11 @@
 <?php
+$params = array('id'=>'int', 'name'=>'str', 'password'=>null, 'role'=>'int');
+$path = 'users.php';
+
+sanitize($params, $path);
+validate($params, $path);
+
+// Sanitization and validation complete
 
 $id = $_POST['id'];
 $name = $_POST['name'];
@@ -15,9 +22,9 @@ if($pass != '') {
 }
 
 if($attendee->update()) {
-	header('Location: users.php?success=update');
+	header('Location: ' . $path . '?success=update');
 }
 else {
-	header('Location: users.php?error=update');
+	header('Location: ' . $path . '?error=update');
 }
 

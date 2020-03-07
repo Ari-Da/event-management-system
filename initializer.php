@@ -44,6 +44,8 @@ function getMessage() {
 			case 'update': $info .= 'edit'; break;
 			case 'delete': $info .= 'delete'; break;
 			case 'insert': $info .= 'insert'; break;
+			case 'sanitize': $info .= ' pass ' . ($_GET['variable'] ?? 'some') . ' sanitization'; break;
+			case 'invalid': $info .= ' pass ' . ($_GET['variable'] ?? 'some') . ' validation'; break;
 		}
 
 		// $info .= ' successfully!</p>';
@@ -77,3 +79,50 @@ function formatDateForDb($date) {
 	return date("y-m-d G:i:s", strtotime($date));
 }
 
+function sanitize($params, $path, $is_get = false) {
+	foreach ($params as $key => $value) {
+		$validated = false;
+
+		if($value != null) {
+			switch($value) {
+				case 'int': $filter = FILTER_SANITIZE_NUMBER_INT; break;
+				case 'str': $filter = FILTER_SANITIZE_STRING; break;
+				default: $filter = FILTER_SANITIZE_STRING;
+			}
+
+			$sanitized = filter_input(($is_get ? INPUT_GET : INPUT_POST), $key, $filter);
+
+			if($sanitized != false && $sanitized != null) {
+				$_POST[$key] = $sanitized;
+			}
+			else {
+				header('Location: ' . $path . '?error=sanitize&variable=' . $key);
+				exit;
+			}	
+		}	
+	}
+}
+
+function validate($params, $path, $is_get = false) {
+	$validated = true;
+
+	foreach ($params as $key => $value) {
+		if($is_get && !isset($_GET[$key])) {
+			header('Location: ' . $path . '?error=invalid&variable=' . $key);
+			exit;
+		}
+		else if(!isset($_POST[$key])) {
+			header('Location: ' . $path . '?error=invalid&variable=' . $key);
+			exit;
+		}
+
+		switch($value) {
+			case 'date': $validated = formatDateForDb(($is_get ? $_GET[$key] : $_POST[$key])); break;
+		}
+
+		if(!$validated) {
+			header('Location: ' . $path . '?error=invalid&variable=' . $key);
+			exit;
+		}
+	}
+}

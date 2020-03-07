@@ -36,19 +36,16 @@ $(function() {
 		modal.find('#allowed').val(allowed);
 
 		if(type == 'event') {
-			modal.find('form').attr('action', 'edit_event.php?type=event');
 			modal.find('#venue').val(venue);
 			modal.find('div.input-group > #venue').parent().show();
 		}
 		else {
-			modal.find('form').attr('action', 'edit_event.php?type=session');
 			modal.find('#event').val(event);
 			modal.find('div.input-group > #venue').parent().hide();
 		}
 
 		modal.find('#id').val(id);
 		modal.find('#type').val(type);
-	
 	});	
 
 	$('#editEvent').on('hidden.bs.modal', function (e) {

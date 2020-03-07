@@ -1,4 +1,11 @@
 <?php
+$params = array('id'=>'int', 'type'=>'str', 'attendee'=>'int', 'paid'=>'int');
+$path = 'manage.php';
+
+sanitize($params, $path);
+validate($params, $path);
+
+// Sanitization and validation complete
 
 $id = $_POST['id'];
 $type = $_POST['type'];
@@ -19,8 +26,8 @@ else if($type == 'session') {
 }
 
 if($obj->insert()) {
-	header('Location: manage.php?success=insert');
+	header('Location: ' . $path . '?success=insert');
 }
 else {
-	header('Location: manage.php?error=insert');
+	header('Location: ' . $path . '?error=insert');
 }

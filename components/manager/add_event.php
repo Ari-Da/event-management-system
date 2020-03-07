@@ -1,4 +1,11 @@
 <?php 
+$params = array('name'=>'str', 'start'=>'date', 'end'=>'date', 'allowed'=>'int', 'venue'=>'int');
+$path = 'manage.php';
+
+sanitize($params, $path);
+validate($params, $path);
+
+// Sanitization and validation complete
 
 $event = new Event();
 $event->setName($_POST['name']);
@@ -18,14 +25,14 @@ if($newId > 0) {
 
 	if($manager_event->insert()) {
 		DB::commitTransaction();
-		header('Location: manage.php?success=insert');
+		header('Location: ' . $path . '?success=insert');
 	}
 	else {
 		DB::rollTransaction();
-		header('Location: manage.php?error=insert');	
+		header('Location: ' . $path . '?error=insert');	
 	}
 }
 else {
 	DB::rollTransaction();
-	header('Location: manage.php?error=insert');
+	header('Location: ' . $path . '?error=insert');
 }

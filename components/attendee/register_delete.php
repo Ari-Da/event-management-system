@@ -1,4 +1,12 @@
 <?php 
+$params = array('id'=>'int', 'type'=>'str', 'paid'=>'int');
+$path = 'events.php';
+
+sanitize($params, $path);
+validate($params, $path);
+
+// Sanitization and validation complete
+
 $registered = intval($_POST['submitBtn']);
 $type = $_POST['type'];
 
@@ -18,8 +26,8 @@ if($registered == 1 && $obj->insert()) {
 	header('Location: events.php?success=insert');
 }
 else if($registered == 0 && $obj->delete()) {
-	header('Location: events.php?success=delete');
+	header('Location: ' . $path . '?success=delete');
 }
 else {
-	header('Location: events.php?error');
+	header('Location: ' . $path . '?error');
 }

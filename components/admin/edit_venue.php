@@ -1,4 +1,11 @@
 <?php
+$params = array('id'=>'int', 'name'=>'str', 'capacity'=>'int');
+$path = 'venues.php';
+
+sanitize($params, $path);
+validate($params, $path);
+
+// Sanitization and validation complete
 
 $id = $_POST['id'];
 $name = $_POST['name'];
@@ -10,8 +17,8 @@ $venue->setName($name);
 $venue->setCapacity($capacity);
 
 if($venue->update()) {
-	header('Location: venues.php?success=update');
+	header('Location: ' . $path . '?success=update');
 }
 else {
-	header('Location: venues.php?error=update');
+	header('Location: ' . $path . '?error=update');
 }
