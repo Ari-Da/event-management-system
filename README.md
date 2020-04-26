@@ -11,7 +11,7 @@ An attendee can view and register/unregister for events/sessions:
 <img src="screenshots/events-sessions-list-user.png" width="600" height="370" border="1">
 <img src="screenshots/event-registration.png" width="600" height="370" border="1">
 
-An event manager can perform CRUD operations on events, sessions, venues and list of attendees, in addition to attendee's priviledges:
+An event manager has the same priviledges as an attendee, in adittion to performing CRUD operations on events, sessions, venues and list of attendees:
 <img src="screenshots/events-sessions-list-admin.png" width="600" height="370" border="1">
 <img src="screenshots/edit-event.png" width="600" height="370" border="1">
 <img src="screenshots/event-sessions-users-crud.png" width="600" height="370" border="1">
